@@ -6,6 +6,6 @@ class Character():
         self.y = y
 
     def drawChar(self, surface, x, y):
-        self.x = x
-        self.y = y
-        pygame.draw.circle(surface, (0,0,0), (x,y), 45, 1)
+        self.x = int(x)
+        self.y = int(y)
+        pygame.draw.circle(surface, (0,0,0), (self.x,self.y), 45, 1)
