@@ -1,0 +1,8 @@
+TODO:
+
+make projectiles work
+make charge gun work
+blast recoil (more in air, less on ground)
+friction more on ground
+make all speed variables character class variables instead of variables of the main program
+make holding jump make the jump go longer (define window in which holding the jump button will add a value)
