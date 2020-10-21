@@ -22,15 +22,21 @@ clock = pygame.time.Clock()
 def game_loop():
 
     # starting position
-    char.x = int(display_width * .5)
-    char.y = 500
+    char.setStartPos(int(display_width * .5), 500)
 
-    while not char.dead:
+    rectangle = pygame.Rect(200, 400, 100, 100)
+    
+
+    while char.alive:
 
         # Main display function
         gameDisplay.fill(white)
         char.drawChar(gameDisplay)
         char.advanceChar(pygame)
+
+        pygame.draw.rect(gameDisplay, black, rectangle)
+
+        char.detectCollision(rectangle)
     
         # update display and clock move forward 
         pygame.display.update() 
