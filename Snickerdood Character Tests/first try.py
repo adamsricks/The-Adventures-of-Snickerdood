@@ -13,7 +13,7 @@ pygame.display.set_caption("heyo")
 black = (0,0,0)
 white = (255,255,255)
 
-car_width = 90
+char_width = 90
 
 # Character init
 character = characterCl.Character()
@@ -117,21 +117,20 @@ def game_loop():
         character.drawChar(gameDisplay, x, y)
 
         # screen boundaries
-        if x > display_width - int(car_width / 2):
-            x = display_width - int(car_width / 2)
-            x_momentum = 0
-        elif x < 0 + int(car_width / 2):
-            x = 0 + int(car_width / 2)
-            x_momentum = 0
-
-        if y > display_height - int(car_width / 2):
-            y = display_height - int(car_width / 2)
-            y_momentum = 0
-        elif y < 0 + int(car_width / 2):
-            y = 0 + int(car_width / 2)
+        if x > display_width - int(char_width / 2):
+            x = display_width - int(char_width / 2)
+            x_momentum *= -1
+        elif x < 0 + int(char_width / 2):   
+            x = 0 + int(char_width / 2)
+            x_momentum *= -1
+        elif y < 0 + int(char_width / 2):
+            y = 0 + int(char_width / 2)
+            y_momentum *= -.5
+        elif y > display_height - int(char_width / 2):
+            y = display_height - int(char_width / 2)
             y_momentum = 0
     
-        # update display and clock move forward
+        # update display and clock move forward 
         pygame.display.update()
         clock.tick(60)
 

@@ -1,8 +1,8 @@
 TODO:
 
-make projectiles work
+make projectiles work CHECK
 make charge gun work
 blast recoil (more in air, less on ground)
-friction more on ground
-make all speed variables character class variables instead of variables of the main program
+friction more on ground CHECK
+make all speed variables character class variables instead of variables of the main program CHECK
 make holding jump make the jump go longer (define window in which holding the jump button will add a value)
