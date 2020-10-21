@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import pygame
 '''import bulletCl
 import bigBulletCl'''
@@ -357,3 +358,8 @@ class Character(pygame.sprite.Sprite):
         for bigBullet in self.big_bullet_list:
             bigBullet.drawBigBullet(surface)'''
         #pygame.draw.rect(surface, (0,0,0), self.hitbox)
+=======
+class Character:
+  def __init__(self):
+    pass
+>>>>>>> 152e40e4a290504afe278496cdebed2e2f253029
