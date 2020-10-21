@@ -1,5 +1,6 @@
 import pygame
 import bulletCl
+import bigBulletCl
 
 """
 All you gotta do to interface is this:
@@ -57,7 +58,7 @@ class Character(pygame.sprite.Sprite):
         # air momentum lock changes how much you can actually change direction midair (smaller value means you have less control)
         self.AIR_MOMENTUM_LOCK = .07
 
-        self.BIG_BULLET_KICKBACK = 5
+        self.BIG_BULLET_KICKBACK = 25
 
         # key press states
         # movement
@@ -116,11 +117,11 @@ class Character(pygame.sprite.Sprite):
                     if self.jumps > 0:
                         self.y_momentum = -self.JUMP_HEIGHT + (self.y_momentum / self.JUMP_MOMENTUM_CANCEL)
                 if event.key == pygame.K_a:
-                    #self.looking_diag_down = True
-                    pass
+                    self.looking_diag_down = True
+                    #pass
                 if event.key == pygame.K_s:
-                    #self.looking_diag_up = True
-                    pass
+                    self.looking_diag_up = True
+                    #pass
                 if event.key == pygame.K_d:
                     self.doAbility()
                 if event.key == pygame.K_f:
@@ -168,7 +169,6 @@ class Character(pygame.sprite.Sprite):
         self.x = x
         self.y = y
 
-
     # check where we are
     def checkScreenBoundaries(self, pygame):
         # screen boundaries
@@ -196,7 +196,6 @@ class Character(pygame.sprite.Sprite):
         if self.y_momentum > 0 or self.y_momentum < 0:
             self.on_ground = False
             
-
     # gun stuff
     def changeGunDirection(self):
         if self.looking_diag_down == True and self.looking_diag_up == True:
@@ -268,7 +267,29 @@ class Character(pygame.sprite.Sprite):
 
     # do duh abilidi
     def doAbility(self):
-        pass
+        bigBullet = bigBulletCl.BigBullet(self.x_gun_location, self.y_gun_location, self.gun_direction)
+        self.big_bullet_list.add(bigBullet)
+        if self.gun_direction == "dl":
+            self.x_momentum += self.BIG_BULLET_KICKBACK
+            self.y_momentum -= self.BIG_BULLET_KICKBACK
+        elif self.gun_direction == "l":
+            self.x_momentum += self.BIG_BULLET_KICKBACK
+        elif self.gun_direction == "ul":
+            self.x_momentum += self.BIG_BULLET_KICKBACK
+            self.y_momentum += self.BIG_BULLET_KICKBACK
+        elif self.gun_direction == "u":
+            self.y_momentum += self.BIG_BULLET_KICKBACK
+        elif self.gun_direction == "ur":
+            self.x_momentum -= self.BIG_BULLET_KICKBACK
+            self.y_momentum += self.BIG_BULLET_KICKBACK
+        elif self.gun_direction == "r":
+            self.x_momentum -= self.BIG_BULLET_KICKBACK
+        elif self.gun_direction == "dr":
+            self.x_momentum -= self.BIG_BULLET_KICKBACK
+            self.y_momentum -= self.BIG_BULLET_KICKBACK
+        elif self.gun_direction == "d":
+            self.y_momentum -= self.BIG_BULLET_KICKBACK
+
 
     def detectCollision(self, object):
         if self.hitbox.colliderect(object):
@@ -314,6 +335,11 @@ class Character(pygame.sprite.Sprite):
             if bullet.alive == False:
                 self.bullet_list.remove(bullet)
 
+        for bigBullet in self.big_bullet_list:
+            bigBullet.advanceBigBullet(pygame)
+            if bigBullet.alive == False:
+                self.big_bullet_list.remove(bigBullet)
+
         self.hitbox_x = self.x - self.CHAR_RADIUS
         self.hitbox_y = self.y - self.CHAR_RADIUS
         self.hitbox = pygame.Rect(self.hitbox_x, self.hitbox_y, 70, 70)
@@ -324,4 +350,6 @@ class Character(pygame.sprite.Sprite):
         self.drawGun(surface)
         for bullet in self.bullet_list:
             bullet.drawBullet(surface)
+        for bigBullet in self.big_bullet_list:
+            bigBullet.drawBigBullet(surface)
         #pygame.draw.rect(surface, (0,0,0), self.hitbox)
