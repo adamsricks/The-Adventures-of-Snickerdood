@@ -1,4 +1,5 @@
 from character import Character
+import pygame
 
 black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)

@@ -26,10 +26,15 @@ class Character(pygame.sprite.Sprite):
         self.x = x
         self.y = y
 
-        self.CHAR_RADIUS = 35
+        self.CHAR_RADIUS = 40
+        self.HEIGHT = 43
+        self.WIDTH = 25
 
-        self.hitbox_x = self.x - self.CHAR_RADIUS
-        self.hitbox_y = self.y - self.CHAR_RADIUS
+        self.HITBOXHEIGHT = 34
+        self.HITBOXWIDTH = 23
+
+        self.hitbox_x = self.x
+        self.hitbox_y = self.y
 
         self.hitbox = pygame.Rect(self.x, self.y, 70, 70)
         
@@ -44,16 +49,16 @@ class Character(pygame.sprite.Sprite):
 
         # jump and in-air stuff
         self.JUMP_HEIGHT = 15
-        self.JUMP_MAX = 3
+        self.JUMP_MAX = 1
         self.jumps = self.JUMP_MAX
         self.JUMP_MOMENTUM_CANCEL = 2.4 # divides the momentum while you're in the air (slows air x momentum)
         self.DROP_SPEED = .3
         self.FLOAT_AMOUNT = .2
 
         # speed stuff
-        self.X_SPEED = 4
+        self.X_SPEED = 3
         self.x_momentum = 0
-        self.X_MOMENTUM_CAP = 7
+        self.X_MOMENTUM_CAP = 5
 
         self.y_momentum = 0
         self.Y_MOMENTUM_CAP = 50
@@ -99,7 +104,14 @@ class Character(pygame.sprite.Sprite):
 
         # gravity and friction
         self.GRAVITY = .5
-        self.FRICTION = .7
+        self.FRICTION = .5
+
+        self.walkRight = [pygame.image.load('pics/megaman-right-1.bmp'), pygame.image.load('pics/megaman-right-2.bmp'), pygame.image.load('pics/megaman-right-3.bmp'), pygame.image.load('pics/megaman-right-4.bmp'), pygame.image.load('pics/megaman-right-5.bmp'), pygame.image.load('pics/megaman-right-6.bmp')]
+        self.walkLeft = [pygame.image.load('pics/megaman-left-1.bmp'), pygame.image.load('pics/megaman-left-2.bmp'), pygame.image.load('pics/megaman-left-3.bmp'), pygame.image.load('pics/megaman-left-4.bmp'), pygame.image.load('pics/megaman-left-5.bmp'), pygame.image.load('pics/megaman-left-6.bmp')]
+        self.standingRight = pygame.image.load('pics/megaman-right-static-1.bmp')
+        self.standingLeft = pygame.image.load('pics/megaman-left-static-1.bmp')
+
+        self.walkCount = 0
 
     # check all the key states
     def checkKeys(self, pygame):
@@ -178,20 +190,20 @@ class Character(pygame.sprite.Sprite):
         # screen boundaries
         display_width, display_height = pygame.display.get_surface().get_size()
         # right boundary
-        if self.x > display_width - self.CHAR_RADIUS:
-            self.x = display_width - self.CHAR_RADIUS
+        if self.x > display_width - self.WIDTH:
+            self.x = display_width - self.WIDTH
             self.x_momentum *= -1
         # left boundary
-        elif self.x < 0 + self.CHAR_RADIUS:   
-            self.x = 0 + self.CHAR_RADIUS
+        elif self.x < 0:   
+            self.x = 0
             self.x_momentum *= -1
         # top boundary
-        if self.y < 0 + self.CHAR_RADIUS:
-            self.y = 0 + self.CHAR_RADIUS
+        if self.y < 0:
+            self.y = 0
             self.y_momentum *= -.5
         # floor boundary
-        elif self.y > display_height - self.CHAR_RADIUS:
-            self.y = display_height - self.CHAR_RADIUS
+        elif self.y > display_height - self.HEIGHT:
+            self.y = display_height - self.HEIGHT
             self.y_momentum = 0
             self.on_ground = True
         elif self.y > display_height - 1:
@@ -266,12 +278,14 @@ class Character(pygame.sprite.Sprite):
     
     # shoot duh bullet
     def shootBullet(self):
-        bullet = bulletCl.Bullet(self.x_gun_location, self.y_gun_location, self.gun_direction)
-        self.bullet_list.add(bullet)
+        pass
+        #bullet = bulletCl.Bullet(self.x_gun_location, self.y_gun_location, self.gun_direction)
+        #self.bullet_list.add(bullet)
 
     # do duh abilidi
     def doAbility(self):
-        bigBullet = bigBulletCl.BigBullet(self.x_gun_location, self.y_gun_location, self.gun_direction)
+        pass
+        '''bigBullet = bigBulletCl.BigBullet(self.x_gun_location, self.y_gun_location, self.gun_direction)
         self.big_bullet_list.add(bigBullet)
         if self.gun_direction == "dl":
             self.x_momentum += self.BIG_BULLET_KICKBACK
@@ -292,7 +306,7 @@ class Character(pygame.sprite.Sprite):
             self.x_momentum -= self.BIG_BULLET_KICKBACK
             self.y_momentum -= self.BIG_BULLET_KICKBACK
         elif self.gun_direction == "d":
-            self.y_momentum -= self.BIG_BULLET_KICKBACK
+            self.y_momentum -= self.BIG_BULLET_KICKBACK'''
 
 
     def detectCollision(self, object):
@@ -334,7 +348,7 @@ class Character(pygame.sprite.Sprite):
         self.checkScreenBoundaries(pygame)
         self.changeGunDirection()
         self.checkKeys(pygame)
-        for bullet in self.bullet_list:
+        '''for bullet in self.bullet_list:
             bullet.advanceBullet(pygame)
             if bullet.alive == False:
                 self.bullet_list.remove(bullet)
@@ -342,18 +356,93 @@ class Character(pygame.sprite.Sprite):
         for bigBullet in self.big_bullet_list:
             bigBullet.advanceBigBullet(pygame)
             if bigBullet.alive == False:
-                self.big_bullet_list.remove(bigBullet)
+                self.big_bullet_list.remove(bigBullet)'''
 
-        self.hitbox_x = self.x - self.CHAR_RADIUS
-        self.hitbox_y = self.y - self.CHAR_RADIUS
-        self.hitbox = pygame.Rect(self.hitbox_x, self.hitbox_y, 70, 70)
+        self.hitbox_x = self.x + 15
+        self.hitbox_y = self.y + 9
+        self.hitbox = pygame.Rect(self.hitbox_x, self.hitbox_y, self.HITBOXWIDTH, self.HITBOXHEIGHT)
+
+        if self.walkCount + 1 >= 24:
+            self.walkCount = 0
  
     # draw 'dat boi
     def drawChar(self, surface):
-        pygame.draw.circle(surface, (0,0,0), (int(self.x),int(self.y)), self.CHAR_RADIUS, 1)
+        #pygame.draw.circle(surface, (0,0,0), (int(self.x),int(self.y)), self.CHAR_RADIUS, 1)
         '''self.drawGun(surface)
         for bullet in self.bullet_list:
             bullet.drawBullet(surface)
         for bigBullet in self.big_bullet_list:
             bigBullet.drawBigBullet(surface)'''
         #pygame.draw.rect(surface, (0,0,0), self.hitbox)
+        pygame.draw.rect(surface,black,(self.hitbox_x,self.hitbox_y,self.HITBOXWIDTH,self.HITBOXHEIGHT))
+    
+        if self.x_momentum == 0:
+            if self.direction_facing == "r":
+                surface.blit(self.standingRight, (self.x, self.y))
+            elif self.direction_facing == "l":
+                surface.blit(self.standingLeft, (self.x, self.y))
+        elif self.direction_facing == "r":
+            surface.blit(self.walkRight[self.walkCount//4], (self.x, self.y))
+            self.walkCount += 1
+        elif self.direction_facing == "l":
+            surface.blit(self.walkLeft[self.walkCount//4], (self.x, self.y))
+            self.walkCount += 1
+
+        
+
+# test main
+def main():
+    pygame.init()
+
+    global display_width
+    display_width = 1200
+    global display_height
+    display_height = 600
+
+    global gameDisplay
+    gameDisplay = pygame.display.set_mode((display_width,display_height))
+    pygame.display.set_caption("Character Test")
+
+    # Colors
+    global black
+    global white
+    black = (0,0,0)
+    white = (255,255,255)
+
+    # Character init
+    global char
+    char = Character()
+
+    global clock
+    clock = pygame.time.Clock()
+    game_loop()
+    pygame.quit()
+    quit()
+
+# test game loop
+def game_loop():
+
+    # starting position
+    char.setStartPos(int(display_width * .5), 500)
+
+    rectangle = pygame.Rect(200, 400, 100, 100)
+    
+
+    while char.alive:
+
+        # Main display function
+        gameDisplay.fill(white)
+        char.advanceChar(pygame)
+        char.drawChar(gameDisplay)
+        
+
+        pygame.draw.rect(gameDisplay, black, rectangle)
+
+        char.detectCollision(rectangle)
+    
+        # update display and clock move forward 
+        pygame.display.update() 
+        clock.tick(60)
+
+if __name__ == "__main__":
+    main()
