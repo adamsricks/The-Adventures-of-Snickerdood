@@ -7,7 +7,7 @@ Class: Platform
 import pygame
 from game import grey
 
-class GamePlatform:
+class Platform:
   def __init__(self, x, y, width, height):
       self.platform = pygame.Rect.Rect(x, y, width, height)
 
