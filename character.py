@@ -64,7 +64,7 @@ class Character(pygame.sprite.Sprite):
         self.Y_MOMENTUM_CAP = 50
 
         # air momentum lock changes how much you can actually change direction midair (smaller value means you have less control)
-        self.AIR_MOMENTUM_LOCK = .07
+        self.AIR_MOMENTUM_LOCK = .12
 
         '''
         self.BIG_BULLET_KICKBACK = 25'''
@@ -76,6 +76,7 @@ class Character(pygame.sprite.Sprite):
         self.pressed_up = False
         self.pressed_down = False
         self.on_ground = False
+        self.on_platform = False
 
         # direction_facing (r or l)
         self.direction_facing = "r"
@@ -160,14 +161,14 @@ class Character(pygame.sprite.Sprite):
                     self.looking_diag_up = False
 
         # checking for key states
-        if self.on_ground:
+        if self.on_ground or self.on_platform:
             if self.pressed_left:
                 self.x_momentum -= self.X_SPEED
                 self.direction_facing = "l"
             if self.pressed_right:
                 self.x_momentum += self.X_SPEED
                 self.direction_facing = "r"
-        elif not self.on_ground:
+        elif not self.on_ground or self.on_platform:
             if self.pressed_left:
                 self.x_momentum -= self.X_SPEED * self.AIR_MOMENTUM_LOCK
                 self.direction_facing = "l"
@@ -180,6 +181,10 @@ class Character(pygame.sprite.Sprite):
             self.y_momentum += self.DROP_SPEED
         if self.on_ground:
             self.jumps = self.JUMP_MAX
+            self.on_platform = False
+        if self.on_platform:
+            self.jumps = self.JUMP_MAX
+            print(self.jumps)
 
     def setStartPos(self, x, y):
         self.x = x
@@ -309,9 +314,55 @@ class Character(pygame.sprite.Sprite):
             self.y_momentum -= self.BIG_BULLET_KICKBACK'''
 
 
-    def detectCollision(self, object):
-        if self.hitbox.colliderect(object):
+    def detectPlatformCollision(self, thisObject):
+        
+        # topright
+        '''if self.hitbox.topright[0] >= thisObject.bottomleft[0] and (self.hitbox.topright[1] < thisObject.bottomleft[1] and self.hitbox.bottomright[1] > thisObject.topleft[1]):
+            self.x_momentum *= -1
+            print("collide right")'''
+        
+        '''if self.hitbox.bottomright[1] >= thisObject.topleft[1] and (self.hitbox.bottomright[0] > thisObject.topleft[0] and self.hitbox.bottomleft[0] < thisObject.topright[0]):
             self.y_momentum = 0
+            #self.on_ground = True
+            print("hitting top")'''
+
+        if self.hitbox.colliderect(thisObject) and (self.hitbox.bottomright[0] > thisObject.topleft[0] and self.hitbox.bottomleft[0] < thisObject.topright[0]):
+            self.y_momentum = 0
+            self.y = thisObject.top - self.HEIGHT + 1
+            self.on_platform = True
+        elif not self.hitbox.colliderect(thisObject) and (self.hitbox.bottomright[0] > thisObject.topleft[0] and self.hitbox.bottomleft[0] < thisObject.topright[0]):
+            self.on_platform = False
+        '''
+        # bottomright
+        if thisObject.collidepoint(self.hitbox.bottomright): #and self.hitbox.bottomright[0] < thisObject.topleft[0]:
+            self.x_momentum = 0
+            print("collide bottomright")
+        elif thisObject.collidepoint(self.hitbox.bottomright): #and self.hitbox.bottomright[1] < thisObject.topleft[1]:
+            self.y_momentum = 0
+            self.on_ground = True
+            print(thisObject.collidepoint(self.hitbox.bottomright))
+            print(self.hitbox.bottomright[1] < thisObject.topleft[1])
+            print("collide bottomright")
+        # topleft
+        if thisObject.collidepoint(self.hitbox.topleft): #and self.hitbox.topleft[0] > thisObject.bottomright[0]:
+            self.x_momentum = 0
+            print("collide topleft")
+        elif thisObject.collidepoint(self.hitbox.topleft): #and self.hitbox.topleft[1] > thisObject.bottomright[1]:
+            self.y_momentum = 0
+            print("collide topleft")
+        # bottomleft
+        if thisObject.collidepoint(self.hitbox.bottomleft): #and self.hitbox.bottomleft[0] > thisObject.topright[0]:
+            self.x_momentum = 0
+            print("collide bottomleft")
+        elif thisObject.collidepoint(self.hitbox.bottomleft): #and self.hitbox.bottomleft[1] < thisObject.topright[1]:
+            self.y_momentum = 0
+            self.on_ground = True
+            print("collide bottomleft")
+        print("detecting collisions")'''
+
+        
+
+        # use clipline(x1, y1, x2, y2) to test for platform collisions (returns empty tuple if it doesn't collide)
         
 
     # move 'dat boi
@@ -328,9 +379,17 @@ class Character(pygame.sprite.Sprite):
                 self.x_momentum += self.FRICTION
             else:
                 self.x_momentum = 0
+        
+        if self.on_platform:
+            if self.x_momentum > 0.2:
+                self.x_momentum -= self.FRICTION
+            elif self.x_momentum < -0.2:
+                self.x_momentum += self.FRICTION
+            else:
+                self.x_momentum = 0
 
         # gravity
-        if self.on_ground == False:
+        if self.on_ground == False and self.on_platform == False:
             self.y_momentum += self.GRAVITY
 
         # momentum caps
@@ -423,9 +482,9 @@ def main():
 def game_loop():
 
     # starting position
-    char.setStartPos(int(display_width * .5), 500)
+    char.setStartPos(int(display_width * .5), 200)
 
-    rectangle = pygame.Rect(200, 400, 100, 100)
+    rectangle = pygame.Rect(800, 400, 400, 20)
     
 
     while char.alive:
@@ -438,11 +497,20 @@ def game_loop():
 
         pygame.draw.rect(gameDisplay, black, rectangle)
 
-        char.detectCollision(rectangle)
+        char.detectPlatformCollision(rectangle)
     
         # update display and clock move forward 
-        pygame.display.update() 
+        pygame.display.update()
         clock.tick(60)
+        #print(f"topleft = {char.hitbox.topleft}")
+        #print(f"bottomleft = {char.hitbox.bottomleft}")
+        #print(f"bottomright = {char.hitbox.bottomright}")
+        #print(f"topright = {char.hitbox.topright}")
+
+
+
+
+        # use clipline(x1, y1, x2, y2) to test for platform collisions (returns empty tuple if it doesn't collide)
 
 if __name__ == "__main__":
     main()
