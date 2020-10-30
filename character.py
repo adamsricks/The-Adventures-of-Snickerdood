@@ -23,20 +23,22 @@ class Character(pygame.sprite.Sprite):
     def __init__(self, x = 0, y = 0):
         super().__init__()
 
+        # position
         self.x = x
         self.y = y
 
-        self.CHAR_RADIUS = 40
+        # size
+        self.CHAR_RADIUS = 40 # depricated
         self.HEIGHT = 43
         self.WIDTH = 25
 
+        # hit box size
         self.HITBOXHEIGHT = 34
         self.HITBOXWIDTH = 23
 
+        # and assigning it before it is advanced in advanceChar()
         self.hitbox_x = self.x
         self.hitbox_y = self.y
-
-        self.hitbox = pygame.Rect(self.x, self.y, 70, 70)
         
         '''
         self.x_gun_location = 0
@@ -56,7 +58,7 @@ class Character(pygame.sprite.Sprite):
         self.FLOAT_AMOUNT = .2
 
         # speed stuff
-        self.X_SPEED = 3
+        self.X_SPEED = 3 # static x-axis speed add
         self.x_momentum = 0
         self.X_MOMENTUM_CAP = 5
 
@@ -112,13 +114,15 @@ class Character(pygame.sprite.Sprite):
         self.standingRight = pygame.image.load('pics/megaman-right-static-1.bmp')
         self.standingLeft = pygame.image.load('pics/megaman-left-static-1.bmp')
 
+        # walk count for animation
         self.walkCount = 0
 
     # check all the key states
     def checkKeys(self, pygame):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.alive = False       
+                self.alive = False      
+
             # check for key presses 
             elif event.type == pygame.KEYDOWN:                    
                 if event.key == pygame.K_LEFT:
@@ -129,6 +133,7 @@ class Character(pygame.sprite.Sprite):
                     self.pressed_down = True
                 elif event.key == pygame.K_UP:
                     self.pressed_up = True
+
                 # space for jump
                 if event.key == pygame.K_SPACE:
                     if self.jumps > 0:
@@ -143,6 +148,7 @@ class Character(pygame.sprite.Sprite):
                     '''self.doAbility()'''
                 if event.key == pygame.K_f:
                     '''self.shootBullet()'''
+
             # check for key releases
             elif event.type == pygame.KEYUP:            
                 if event.key == pygame.K_LEFT:
@@ -160,32 +166,7 @@ class Character(pygame.sprite.Sprite):
                 if event.key == pygame.K_s:
                     self.looking_diag_up = False
 
-        # checking for key states
-        if self.on_ground or self.on_platform:
-            if self.pressed_left:
-                self.x_momentum -= self.X_SPEED
-                self.direction_facing = "l"
-            if self.pressed_right:
-                self.x_momentum += self.X_SPEED
-                self.direction_facing = "r"
-        elif not self.on_ground or self.on_platform:
-            if self.pressed_left:
-                self.x_momentum -= self.X_SPEED * self.AIR_MOMENTUM_LOCK
-                self.direction_facing = "l"
-            if self.pressed_right:
-                self.x_momentum += self.X_SPEED * self.AIR_MOMENTUM_LOCK
-                self.direction_facing = "r"
-        if self.pressed_up:
-            self.y_momentum -= self.FLOAT_AMOUNT
-        if self.pressed_down:
-            self.y_momentum += self.DROP_SPEED
-        if self.on_ground:
-            self.jumps = self.JUMP_MAX
-            self.on_platform = False
-        if self.on_platform:
-            self.jumps = self.JUMP_MAX
-            print(self.jumps)
-
+    # quick set start position
     def setStartPos(self, x, y):
         self.x = x
         self.y = y
@@ -313,7 +294,7 @@ class Character(pygame.sprite.Sprite):
         elif self.gun_direction == "d":
             self.y_momentum -= self.BIG_BULLET_KICKBACK'''
 
-
+    # our platform detection that doesnt work
     def detectPlatformCollision(self, thisObject):
         
         # topright
@@ -380,6 +361,7 @@ class Character(pygame.sprite.Sprite):
             else:
                 self.x_momentum = 0
         
+        # checking if hes on the platform but doesnt work
         if self.on_platform:
             if self.x_momentum > 0.2:
                 self.x_momentum -= self.FRICTION
@@ -403,6 +385,37 @@ class Character(pygame.sprite.Sprite):
         elif self.y_momentum < -self.Y_MOMENTUM_CAP:
             self.y_momentum = -self.Y_MOMENTUM_CAP
 
+        # checking for key states
+        # regular movement on ground
+        if self.on_ground or self.on_platform:
+            if self.pressed_left:
+                self.x_momentum -= self.X_SPEED
+                self.direction_facing = "l"
+            if self.pressed_right:
+                self.x_momentum += self.X_SPEED
+                self.direction_facing = "r"
+        # less movement in air
+        elif not self.on_ground or self.on_platform:
+            if self.pressed_left:
+                self.x_momentum -= self.X_SPEED * self.AIR_MOMENTUM_LOCK
+                self.direction_facing = "l"
+            if self.pressed_right:
+                self.x_momentum += self.X_SPEED * self.AIR_MOMENTUM_LOCK
+                self.direction_facing = "r"
+        # float if pressing up in air
+        if self.pressed_up:
+            self.y_momentum -= self.FLOAT_AMOUNT
+        # drop hard if pressing down
+        if self.pressed_down:
+            self.y_momentum += self.DROP_SPEED
+        # get jumps back if on ground
+        if self.on_ground:
+            self.jumps = self.JUMP_MAX
+            self.on_platform = False
+        if self.on_platform:
+            self.jumps = self.JUMP_MAX
+            print(self.jumps)
+
         
         self.checkScreenBoundaries(pygame)
         self.changeGunDirection()
@@ -417,10 +430,12 @@ class Character(pygame.sprite.Sprite):
             if bigBullet.alive == False:
                 self.big_bullet_list.remove(bigBullet)'''
 
+        # assigning hitbox and making it follow him
         self.hitbox_x = self.x + 15
         self.hitbox_y = self.y + 9
         self.hitbox = pygame.Rect(self.hitbox_x, self.hitbox_y, self.HITBOXWIDTH, self.HITBOXHEIGHT)
 
+        # walk count for animation
         if self.walkCount + 1 >= 24:
             self.walkCount = 0
  
@@ -433,8 +448,11 @@ class Character(pygame.sprite.Sprite):
         for bigBullet in self.big_bullet_list:
             bigBullet.drawBigBullet(surface)'''
         #pygame.draw.rect(surface, (0,0,0), self.hitbox)
+
+        # hitbox draw
         pygame.draw.rect(surface,black,(self.hitbox_x,self.hitbox_y,self.HITBOXWIDTH,self.HITBOXHEIGHT))
     
+        # running animation while running (duh)
         if self.x_momentum == 0:
             if self.direction_facing == "r":
                 surface.blit(self.standingRight, (self.x, self.y))
