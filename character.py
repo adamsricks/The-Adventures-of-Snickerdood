@@ -24,8 +24,8 @@ class Character(pygame.sprite.Sprite):
         super().__init__()
 
         # position
-        self.x = x
-        self.y = y
+        self.hitbox_x = x
+        self.hitbox_y = y
 
         # size
         self.CHAR_RADIUS = 40 # depricated
@@ -37,8 +37,13 @@ class Character(pygame.sprite.Sprite):
         self.HITBOXWIDTH = 23
 
         # and assigning it before it is advanced in advanceChar()
-        self.hitbox_x = self.x
-        self.hitbox_y = self.y
+        self.x = self.hitbox_x
+        self.y = self.hitbox_y
+
+        self.hitbox = pygame.Rect(self.hitbox_x, self.hitbox_y, self.HITBOXWIDTH, self.HITBOXHEIGHT)
+        self.projected_hitbox = self.hitbox
+
+        self.PROJ_HIT_PAD = 2
         
         '''
         self.x_gun_location = 0
@@ -176,23 +181,23 @@ class Character(pygame.sprite.Sprite):
         # screen boundaries
         display_width, display_height = pygame.display.get_surface().get_size()
         # right boundary
-        if self.x > display_width - self.WIDTH:
-            self.x = display_width - self.WIDTH
+        if self.hitbox_x > display_width - self.HITBOXWIDTH:
+            self.hitbox_x = display_width - self.HITBOXWIDTH
             self.x_momentum *= -1
         # left boundary
-        elif self.x < 0:   
-            self.x = 0
+        elif self.hitbox_x < 0:   
+            self.hitbox_x = 0
             self.x_momentum *= -1
         # top boundary
-        if self.y < 0:
-            self.y = 0
+        if self.hitbox_y < 0:
+            self.hitbox_y = 0
             self.y_momentum *= -.5
         # floor boundary
-        elif self.y > display_height - self.HEIGHT:
-            self.y = display_height - self.HEIGHT
+        elif self.hitbox_y > display_height - self.HITBOXHEIGHT:
+            self.hitbox_y = display_height - self.HITBOXHEIGHT
             self.y_momentum = 0
             self.on_ground = True
-        elif self.y > display_height - 1:
+        elif self.hitbox_y > display_height - 1:
             #self.on_ground = True
             pass
         if self.y_momentum > 0 or self.y_momentum < 0:
@@ -296,61 +301,28 @@ class Character(pygame.sprite.Sprite):
 
     # our platform detection that doesnt work
     def detectPlatformCollision(self, thisObject):
-        
-        # topright
-        '''if self.hitbox.topright[0] >= thisObject.bottomleft[0] and (self.hitbox.topright[1] < thisObject.bottomleft[1] and self.hitbox.bottomright[1] > thisObject.topleft[1]):
-            self.x_momentum *= -1
-            print("collide right")'''
-        
-        '''if self.hitbox.bottomright[1] >= thisObject.topleft[1] and (self.hitbox.bottomright[0] > thisObject.topleft[0] and self.hitbox.bottomleft[0] < thisObject.topright[0]):
-            self.y_momentum = 0
-            #self.on_ground = True
-            print("hitting top")'''
 
-        if self.hitbox.colliderect(thisObject) and (self.hitbox.bottomright[0] > thisObject.topleft[0] and self.hitbox.bottomleft[0] < thisObject.topright[0]):
-            self.y_momentum = 0
-            self.y = thisObject.top - self.HEIGHT + 1
-            self.on_platform = True
-        elif not self.hitbox.colliderect(thisObject) and (self.hitbox.bottomright[0] > thisObject.topleft[0] and self.hitbox.bottomleft[0] < thisObject.topright[0]):
+        if self.hitbox.colliderect(thisObject):            
+            if self.y_momentum > 0:
+                self.hitbox_y = thisObject.top - self.HITBOXHEIGHT
+                self.y_momentum = 0
+                self.on_platform = True
+
+        elif not self.projected_hitbox.colliderect(thisObject):
             self.on_platform = False
-        '''
-        # bottomright
-        if thisObject.collidepoint(self.hitbox.bottomright): #and self.hitbox.bottomright[0] < thisObject.topleft[0]:
-            self.x_momentum = 0
-            print("collide bottomright")
-        elif thisObject.collidepoint(self.hitbox.bottomright): #and self.hitbox.bottomright[1] < thisObject.topleft[1]:
-            self.y_momentum = 0
-            self.on_ground = True
-            print(thisObject.collidepoint(self.hitbox.bottomright))
-            print(self.hitbox.bottomright[1] < thisObject.topleft[1])
-            print("collide bottomright")
-        # topleft
-        if thisObject.collidepoint(self.hitbox.topleft): #and self.hitbox.topleft[0] > thisObject.bottomright[0]:
-            self.x_momentum = 0
-            print("collide topleft")
-        elif thisObject.collidepoint(self.hitbox.topleft): #and self.hitbox.topleft[1] > thisObject.bottomright[1]:
-            self.y_momentum = 0
-            print("collide topleft")
-        # bottomleft
-        if thisObject.collidepoint(self.hitbox.bottomleft): #and self.hitbox.bottomleft[0] > thisObject.topright[0]:
-            self.x_momentum = 0
-            print("collide bottomleft")
-        elif thisObject.collidepoint(self.hitbox.bottomleft): #and self.hitbox.bottomleft[1] < thisObject.topright[1]:
-            self.y_momentum = 0
-            self.on_ground = True
-            print("collide bottomleft")
-        print("detecting collisions")'''
 
-        
 
-        # use clipline(x1, y1, x2, y2) to test for platform collisions (returns empty tuple if it doesn't collide)
-        
+
+            
 
     # move 'dat boi
     def advanceChar(self, pygame):
         # momentum
-        self.x += self.x_momentum
-        self.y += self.y_momentum
+        self.hitbox_x += self.x_momentum
+        self.hitbox_y += self.y_momentum
+
+        self.hitbox.x = self.hitbox_x
+        self.hitbox.y = self.hitbox_y
 
         # friction
         if self.on_ground:
@@ -369,6 +341,7 @@ class Character(pygame.sprite.Sprite):
                 self.x_momentum += self.FRICTION
             else:
                 self.x_momentum = 0
+
 
         # gravity
         if self.on_ground == False and self.on_platform == False:
@@ -394,14 +367,18 @@ class Character(pygame.sprite.Sprite):
             if self.pressed_right:
                 self.x_momentum += self.X_SPEED
                 self.direction_facing = "r"
+            '''else:
+                self.x_momentum = 0'''
         # less movement in air
-        elif not self.on_ground or self.on_platform:
+        elif not self.on_ground and not self.on_platform:
             if self.pressed_left:
-                self.x_momentum -= self.X_SPEED * self.AIR_MOMENTUM_LOCK
+                self.x_momentum -= self.X_SPEED
                 self.direction_facing = "l"
             if self.pressed_right:
-                self.x_momentum += self.X_SPEED * self.AIR_MOMENTUM_LOCK
+                self.x_momentum += self.X_SPEED
                 self.direction_facing = "r"
+            '''else:
+                self.x_momentum = 0'''
         # float if pressing up in air
         if self.pressed_up:
             self.y_momentum -= self.FLOAT_AMOUNT
@@ -414,7 +391,7 @@ class Character(pygame.sprite.Sprite):
             self.on_platform = False
         if self.on_platform:
             self.jumps = self.JUMP_MAX
-            print(self.jumps)
+            #print(self.jumps)
 
         
         self.checkScreenBoundaries(pygame)
@@ -430,14 +407,20 @@ class Character(pygame.sprite.Sprite):
             if bigBullet.alive == False:
                 self.big_bullet_list.remove(bigBullet)'''
 
-        # assigning hitbox and making it follow him
-        self.hitbox_x = self.x + 15
-        self.hitbox_y = self.y + 9
-        self.hitbox = pygame.Rect(self.hitbox_x, self.hitbox_y, self.HITBOXWIDTH, self.HITBOXHEIGHT)
+        # making the animation follow the hitbox
+        """self.hitbox_x = self.x + 15
+        self.hitbox_y = self.y + 9"""
+        self.x = self.hitbox_x - 15
+        self.y = self.hitbox_y - 9
 
         # walk count for animation
         if self.walkCount + 1 >= 24:
             self.walkCount = 0
+
+        self.projected_hitbox.bottom += self.PROJ_HIT_PAD
+        self.projected_hitbox.left += self.PROJ_HIT_PAD
+        self.projected_hitbox.right += self.PROJ_HIT_PAD
+        self.projected_hitbox.top += self.PROJ_HIT_PAD
  
     # draw 'dat boi
     def drawChar(self, surface):
@@ -488,7 +471,7 @@ def main():
 
     # Character init
     global char
-    char = Character()
+    char = Character(200, 200)
 
     global clock
     clock = pygame.time.Clock()
@@ -502,20 +485,24 @@ def game_loop():
     # starting position
     char.setStartPos(int(display_width * .5), 200)
 
-    rectangle = pygame.Rect(800, 400, 400, 20)
+    rectangle = pygame.Rect(600, 400, 400, 100)
     
 
     while char.alive:
 
         # Main display function
         gameDisplay.fill(white)
+        
         char.advanceChar(pygame)
+        char.detectPlatformCollision(rectangle)
         char.drawChar(gameDisplay)
         
 
         pygame.draw.rect(gameDisplay, black, rectangle)
+        '''print(f'x = {char.hitbox_x}', end=" ")
+        print(f'y = {char.hitbox_y}')'''
 
-        char.detectPlatformCollision(rectangle)
+        
     
         # update display and clock move forward 
         pygame.display.update()
