@@ -19,9 +19,8 @@ C: Ability (???)
 V: Small blast
 """
 
-class Character(pygame.sprite.Sprite):
+class Player():
     def __init__(self, x = 0, y = 0):
-        super().__init__()
 
         # position
         self.hitbox_x = x
@@ -307,13 +306,10 @@ class Character(pygame.sprite.Sprite):
                 self.hitbox_y = thisObject.top - self.HITBOXHEIGHT
                 self.y_momentum = 0
                 self.on_platform = True
+            print("colliding")
 
         elif not self.projected_hitbox.colliderect(thisObject):
-            self.on_platform = False
-
-
-
-            
+            self.on_platform = False            
 
     # move 'dat boi
     def advanceChar(self, pygame):
@@ -418,9 +414,9 @@ class Character(pygame.sprite.Sprite):
             self.walkCount = 0
 
         self.projected_hitbox.bottom += self.PROJ_HIT_PAD
-        self.projected_hitbox.left += self.PROJ_HIT_PAD
+        self.projected_hitbox.left -= self.PROJ_HIT_PAD
         self.projected_hitbox.right += self.PROJ_HIT_PAD
-        self.projected_hitbox.top += self.PROJ_HIT_PAD
+        self.projected_hitbox.top -= self.PROJ_HIT_PAD
  
     # draw 'dat boi
     def drawChar(self, surface):
@@ -430,7 +426,7 @@ class Character(pygame.sprite.Sprite):
             bullet.drawBullet(surface)
         for bigBullet in self.big_bullet_list:
             bigBullet.drawBigBullet(surface)'''
-        #pygame.draw.rect(surface, (0,0,0), self.hitbox)
+        pygame.draw.rect(surface, (0,0,0), self.hitbox)
 
         # hitbox draw
         pygame.draw.rect(surface,black,(self.hitbox_x,self.hitbox_y,self.HITBOXWIDTH,self.HITBOXHEIGHT))
@@ -471,7 +467,7 @@ def main():
 
     # Character init
     global char
-    char = Character(200, 200)
+    char = Player(200, 200)
 
     global clock
     clock = pygame.time.Clock()
