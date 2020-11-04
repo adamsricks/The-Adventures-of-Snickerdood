@@ -1,7 +1,94 @@
 from character import Character
+import pygame
+from pygame.locals import *
 
-
+# Set up movement variables.
 class Game:
-  def __init__(self):
-    self.character = Character()
-    
+    def __init__(self):
+        self.screen = None
+        self.clock = None
+
+        self.gravity = 0
+
+        self.char = None
+
+        self.plat = None
+
+
+    def on_init(self):
+        pygame.init()
+        self.screen = pygame.display.set_mode((576,1025)) 
+        self.clock = pygame.time.Clock()
+
+        self.gravity = 0.33
+
+        self.char = Character()
+
+        self.plat = pygame.Rect(200,800,100,100)
+
+
+    def on_event(self, event):
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                self.char.jump()
+            if event.key == pygame.K_d:
+                self.char.moveRight = True
+            if event.key == pygame.K_a:
+                self.char.moveLeft = True
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_d:
+                self.char.moveRight = False
+            if event.key == pygame.K_a:
+                self.char.moveLeft = False
+                
+
+       
+
+    def on_loop(self):
+        self.char.onGround = False
+        
+        if self.char.scrnbtm(1025):
+            self.char.setBottom(1026)
+
+        if self.char.platTopCollide(self.plat):
+            self.char.setBottom(self.plat.top)
+        
+        if self.char.platBtmCollide(self.plat):
+            self.char.hitHead(self.plat.bottom )
+
+        if self.char.platLeftCollide(self.plat):
+            self.char.hitRight(self.plat.left)
+
+        if self.char.platRightCollide(self.plat):
+            self.char.hitLeft(self.plat.right)
+            
+        self.char.advance(self.gravity)
+
+    def on_render(self):
+        self.screen.fill((255,255,255))
+
+        self.char.draw(self.screen)
+
+        pygame.draw.rect(self.screen, (0, 0, 0,), self.plat)
+
+        pygame.display.update()
+        self.clock.tick(90)
+        
+    def on_cleanup(self):
+        pygame.quit()
+ 
+    def on_execute(self):
+        if self.on_init() == False:
+            sys.exit()
+ 
+        while True:
+            for event in pygame.event.get():
+                self.on_event(event)
+            
+            self.on_loop()
+            self.on_render()
+        self.on_cleanup()
