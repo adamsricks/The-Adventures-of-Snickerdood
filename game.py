@@ -26,7 +26,7 @@ class Game:
 
         self.char = None
 
-        self.plat = None
+        self.plats = None
 
 
     def on_init(self):
@@ -34,11 +34,11 @@ class Game:
         self.screen = pygame.display.set_mode((self.screen_width,self.screen_height)) 
         self.clock = pygame.time.Clock()
 
-        self.gravity = 0.33
+        self.gravity = 0.66
 
         self.char = Player(self.gravity)
 
-        self.plat = pygame.Rect(200,300,100,100)
+        self.plats = [pygame.Rect(0,450,500,50), pygame.Rect(76,350,500,50), pygame.Rect(0,250,500,50), pygame.Rect(76,150,500,50)]
 
 
     def on_event(self, event):
@@ -64,21 +64,21 @@ class Game:
 
     def on_loop(self):
         self.char.onGround = False
-        
-        if self.char.scrnbtm(self.screen_height):
-            self.char.setBottom(self.screen_height + 1)
+        for platform in self.plats:
+            if self.char.scrnbtm(self.screen_height):
+                self.char.setBottom(self.screen_height + 1)
 
-        if self.char.platTopCollide(self.plat):
-            self.char.setBottom(self.plat.top)
-        
-        if self.char.platBtmCollide(self.plat):
-            self.char.hitHead(self.plat.bottom )
+            if self.char.platTopCollide(platform):
+                self.char.setBottom(platform.top)
+            
+            if self.char.platBtmCollide(platform):
+                self.char.hitHead(platform.bottom )
 
-        if self.char.platLeftCollide(self.plat):
-            self.char.hitRight(self.plat.left)
+            if self.char.platLeftCollide(platform):
+                self.char.hitRight(platform.left)
 
-        if self.char.platRightCollide(self.plat):
-            self.char.hitLeft(self.plat.right)
+            if self.char.platRightCollide(platform):
+                self.char.hitLeft(platform.right)
             
         self.char.advance()
 
@@ -87,7 +87,8 @@ class Game:
 
         self.char.draw(self.screen)
 
-        pygame.draw.rect(self.screen, (0, 0, 0,), self.plat)
+        for platform in self.plats:
+            pygame.draw.rect(self.screen, (0, 0, 0,), platform)
 
         pygame.display.update()
         self.clock.tick(90)

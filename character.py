@@ -5,7 +5,7 @@ class Character:
     def __init__(self, gravity):
         self.surface = pygame.image.load("Woodcutter.png").convert_alpha()
         
-        self.rect = self.surface.get_rect(center = (100, 512))
+        self.rect = self.surface.get_rect(center = (100, 576))
         
         self.movementy = 0
         self.movementx = 0
