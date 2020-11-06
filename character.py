@@ -2,10 +2,9 @@ import pygame
 from pygame.locals import *
 
 class Character:
-    def __init__(self):
+    def __init__(self, gravity):
         self.surface = pygame.image.load("Woodcutter.png").convert_alpha()
-
-
+        
         self.rect = self.surface.get_rect(center = (100, 512))
         
         self.movementy = 0
@@ -16,6 +15,8 @@ class Character:
 
         self.onGround = False
 
+        self.gravity = gravity
+
         self.maxSpeed = 4
         self.accX = .15
 
@@ -23,10 +24,10 @@ class Character:
     def draw(self, screen):
         screen.blit(self.surface, self.rect)
 
-    def advance(self, gravity):
+    def advance(self):
       
       if not self.onGround:
-        self.movementy += gravity
+        self.movementy += self.gravity
         self.rect.centery += self.movementy
       else:
         self.movementy = 0

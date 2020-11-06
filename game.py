@@ -1,4 +1,5 @@
 from character import Character
+from player import Player
 import pygame
 
 from pygame.locals import *
@@ -18,6 +19,9 @@ class Game:
         self.screen = None
         self.clock = None
 
+        self.screen_width = 576
+        self.screen_height = 576
+
         self.gravity = 0
 
         self.char = None
@@ -27,14 +31,14 @@ class Game:
 
     def on_init(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((576,1025)) 
+        self.screen = pygame.display.set_mode((self.screen_width,self.screen_height)) 
         self.clock = pygame.time.Clock()
 
         self.gravity = 0.33
 
-        self.char = Character()
+        self.char = Player(self.gravity)
 
-        self.plat = pygame.Rect(200,800,100,100)
+        self.plat = pygame.Rect(200,300,100,100)
 
 
     def on_event(self, event):
@@ -61,8 +65,8 @@ class Game:
     def on_loop(self):
         self.char.onGround = False
         
-        if self.char.scrnbtm(1025):
-            self.char.setBottom(1026)
+        if self.char.scrnbtm(self.screen_height):
+            self.char.setBottom(self.screen_height + 1)
 
         if self.char.platTopCollide(self.plat):
             self.char.setBottom(self.plat.top)
@@ -76,7 +80,7 @@ class Game:
         if self.char.platRightCollide(self.plat):
             self.char.hitLeft(self.plat.right)
             
-        self.char.advance(self.gravity)
+        self.char.advance()
 
     def on_render(self):
         self.screen.fill((255,255,255))
