@@ -1,7 +1,8 @@
 import pygame
 
-class Bullet():
+class Bullet(pygame.sprite.Sprite):
     def __init__(self, direction, center):
+        super().__init__()
         self.surface = None
         self.center = center
         self.direction = direction
@@ -9,7 +10,7 @@ class Bullet():
         self.x = center[0]
         self.y = center[1]
 
-        self.speed = 5
+        self.speed = 7
 
         # self.rect = self.surface.get_rect(center = (100, 576))
 
@@ -46,7 +47,7 @@ def main():
     white = (255,255,255)
 
     global bullet
-    bullet = Bullet("l", [500,500])
+    bullet = Bullet("l", (500,500))
 
     global clock
     clock = pygame.time.Clock()

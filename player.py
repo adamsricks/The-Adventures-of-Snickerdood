@@ -11,7 +11,7 @@ class Player(char.Character):
         self.direction = "r"
 
         # This will update to give the end of the gun so bullet can grab it when necessary
-        self.gunPoint = [0,0]
+        self.gunPoint = self.rect.center
 
         self.jump_height = 13
 
@@ -33,6 +33,7 @@ class Player(char.Character):
     def advance(self):
         super().advance()
         self.changeDirection()
+        self.gunPoint = self.rect.center
 
 
 

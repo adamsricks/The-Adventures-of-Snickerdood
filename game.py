@@ -27,6 +27,8 @@ class Game:
 
         self.char = None
 
+        self.bullet_list = pygame.sprite.Group()
+
         self.plats = None
 
 
@@ -76,7 +78,8 @@ class Game:
     def shootBullet(self):
         # This will add a bullet to the bullet list and pass the bullet the end of the gun
         # and the direction that the character is facing
-        pass
+        bullet = Bullet(self.char.direction, self.char.gunPoint)
+        bullet.add(self.bullet_list)
 
     def on_loop(self):
         self.char.onGround = False
@@ -98,10 +101,20 @@ class Game:
             
         self.char.advance()
 
+        for each in self.bullet_list:
+            if not each.alive:
+                each.remove()
+            else:
+                each.advance()
+            
+
     def on_render(self):
         self.screen.fill((255,255,255))
 
         self.char.draw(self.screen)
+
+        for each in self.bullet_list:
+            each.draw(self.screen)
 
         for platform in self.plats:
             pygame.draw.rect(self.screen, (0, 0, 0,), platform)
