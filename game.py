@@ -1,5 +1,6 @@
 from character import Character
 from player import Player
+from bullet import Bullet
 import pygame
 
 from pygame.locals import *
@@ -60,7 +61,7 @@ class Game:
             if event.key == pygame.K_LEFT:
                 self.char.moveLeft = True
             if event.key == pygame.K_SPACE:
-                self.char.shootBullet()
+                self.shootBullet()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_d:
                 self.char.moveRight = False
@@ -72,7 +73,10 @@ class Game:
                 self.char.moveLeft = False
                 
 
-       
+    def shootBullet(self):
+        # This will add a bullet to the bullet list and pass the bullet the end of the gun
+        # and the direction that the character is facing
+        pass
 
     def on_loop(self):
         self.char.onGround = False

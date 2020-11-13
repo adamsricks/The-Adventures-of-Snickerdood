@@ -8,6 +8,11 @@ class Player(char.Character):
         self.maxSpeed = 3.5
         self.accX = .5
 
+        self.direction = "r"
+
+        # This will update to give the end of the gun so bullet can grab it when necessary
+        self.gunPoint = [0,0]
+
         self.jump_height = 13
 
         self.health = 200
@@ -19,8 +24,17 @@ class Player(char.Character):
         self.movementy = 0
         self.movementy -= self.jump_height
 
-    def shootBullet(self):
-        pass
+    def changeDirection(self):
+        if self.movementx > 0:
+            self.direction = 'r'
+        elif self.movementx < 0:
+            self.direction = 'l'
+
+    def advance(self):
+        super().advance()
+        self.changeDirection()
+
+
 
 
 
