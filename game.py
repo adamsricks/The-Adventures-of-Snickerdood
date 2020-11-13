@@ -53,10 +53,22 @@ class Game:
                 self.char.moveRight = True
             if event.key == pygame.K_a:
                 self.char.moveLeft = True
+            if event.key == pygame.K_UP:
+                self.char.jump()
+            if event.key == pygame.K_RIGHT:
+                self.char.moveRight = True
+            if event.key == pygame.K_LEFT:
+                self.char.moveLeft = True
+            if event.key == pygame.K_SPACE:
+                self.char.shootBullet()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_d:
                 self.char.moveRight = False
             if event.key == pygame.K_a:
+                self.char.moveLeft = False
+            if event.key == pygame.K_RIGHT:
+                self.char.moveRight = False
+            if event.key == pygame.K_LEFT:
                 self.char.moveLeft = False
                 
 
