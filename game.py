@@ -7,7 +7,6 @@ from pygame.locals import *
 
 # Set up movement variables.
 
-
 black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)
 grey = pygame.Color(128, 128, 128)
@@ -40,6 +39,7 @@ class Game:
         self.gravity = 0.66
 
         self.char = Player(self.gravity)
+        self.char.alive = True
 
         self.plats = [pygame.Rect(0,450,500,50), pygame.Rect(76,350,500,50), pygame.Rect(0,250,500,50), pygame.Rect(76,150,500,50)]
 
@@ -102,7 +102,7 @@ class Game:
         self.char.advance()
 
         for each in self.bullet_list:
-            if not each.alive:
+            if each.checkCollision(self.char):
                 each.remove()
             else:
                 each.advance()

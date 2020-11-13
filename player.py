@@ -10,6 +10,8 @@ class Player(char.Character):
 
         self.direction = "r"
 
+        self.alive = True
+
         # This will update to give the end of the gun so bullet can grab it when necessary
         self.gunPoint = self.rect.center
 

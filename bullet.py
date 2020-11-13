@@ -16,8 +16,6 @@ class Bullet(pygame.sprite.Sprite):
 
         self.rect = pygame.Rect(self.x,self.y,5,5)
 
-        self.alive = True
-
         if direction == "l":
             self.x_movement = -self.speed
         elif direction == "r":
@@ -30,6 +28,11 @@ class Bullet(pygame.sprite.Sprite):
     def advance(self):
         self.x += self.x_movement
         self.rect.center = (self.x, self.y)
+
+    def checkCollision(self, character):
+        if character.rect.colliderect(self.rect):
+            return True
+
         
 
 
