@@ -1,16 +1,20 @@
 from character import Character
 from player import Player
+
+
 from stage import Stage
 from menu import Menu
 
 import pickle
 import sys
 
+from bullet import Bullet
+import pygame
+
 import pygame
 from pygame.locals import *
 
 # Set up movement variables.
-
 
 black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)
@@ -31,7 +35,11 @@ class Game:
 
         self.player = None
 
+
         self.stage = None
+
+        self.bullet_list = pygame.sprite.Group()
+
 
         self.menu = None
 
@@ -43,14 +51,9 @@ class Game:
 
         self.gravity = 0.66
 
+
         self.menu = Menu()
 
-        # self.stage =  pickle.load( open( "Level1/Stage1", "rb" ) )
-        
-        
-
-        # self.player = Player(self.gravity)
-        # self.player.startPos(self.stage.startDoor.rect)
 
 
 
@@ -65,22 +68,30 @@ class Game:
                 self.player = Player(self.gravity)
                 self.player.startPos(self.stage.startDoor.rect)
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w:
+            if event.key == pygame.K_w or event.key == pygame.K_UP: 
                 self.player.jump()
-            if event.key == pygame.K_d:
+            if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                 self.player.moveRight = True
-            if event.key == pygame.K_a:
+            if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                 self.player.moveLeft = True
+            if event.key == pygame.K_SPACE:
+                self.shootBullet()
+
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_d:
+            if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                 self.player.moveRight = False
-            if event.key == pygame.K_a:
+            if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                 self.player.moveLeft = False
                 
 
-       
+    def shootBullet(self):
+        # This will add a bullet to the bullet list and pass the bullet the end of the gun
+        # and the direction that the character is facing
+        bullet = Bullet(self.player.direction, self.player.gunPoint)
+        bullet.add(self.bullet_list)
 
     def on_loop(self):
+
         if self.player != None:
             self.player.onGround = False
 
@@ -106,12 +117,25 @@ class Game:
                 
             self.player.advance()
 
+
+        for each in self.bullet_list:
+            if each.x < 0 or each.x > self.screen_width:
+                each.kill()
+            else:
+                each.advance()
+            
+
+
     def on_render(self):
         self.screen.fill((255,255,255))
+
 
         if self.stage != None:
             self.stage.draw(self.screen)
             self.player.draw(self.screen)
+
+            for each in self.bullet_list:
+                each.draw(self.screen)
         else:
             self.menu.draw(self.screen)
 
