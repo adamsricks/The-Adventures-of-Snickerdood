@@ -24,7 +24,7 @@ class Game:
 
         self.gravity = 0
 
-        self.char = None
+        self.player = None
 
         self.bullet_list = pygame.sprite.Group()
 
@@ -38,8 +38,8 @@ class Game:
 
         self.gravity = 0.66
 
-        self.char = Player(self.gravity)
-        self.char.alive = True
+        self.player = Player(self.gravity)
+        self.player.alive = True
 
         self.plats = [pygame.Rect(0,450,500,50), pygame.Rect(76,350,500,50), pygame.Rect(0,250,500,50), pygame.Rect(76,150,500,50)]
 
@@ -51,55 +51,55 @@ class Game:
         
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w:
-                self.char.jump()
+                self.player.jump()
             if event.key == pygame.K_d:
-                self.char.moveRight = True
+                self.player.moveRight = True
             if event.key == pygame.K_a:
-                self.char.moveLeft = True
+                self.player.moveLeft = True
             if event.key == pygame.K_UP:
-                self.char.jump()
+                self.player.jump()
             if event.key == pygame.K_RIGHT:
-                self.char.moveRight = True
+                self.player.moveRight = True
             if event.key == pygame.K_LEFT:
-                self.char.moveLeft = True
+                self.player.moveLeft = True
             if event.key == pygame.K_SPACE:
                 self.shootBullet()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_d:
-                self.char.moveRight = False
+                self.player.moveRight = False
             if event.key == pygame.K_a:
-                self.char.moveLeft = False
+                self.player.moveLeft = False
             if event.key == pygame.K_RIGHT:
-                self.char.moveRight = False
+                self.player.moveRight = False
             if event.key == pygame.K_LEFT:
-                self.char.moveLeft = False
+                self.player.moveLeft = False
                 
 
     def shootBullet(self):
         # This will add a bullet to the bullet list and pass the bullet the end of the gun
         # and the direction that the character is facing
-        bullet = Bullet(self.char.direction, self.char.gunPoint)
+        bullet = Bullet(self.player.direction, self.player.gunPoint)
         bullet.add(self.bullet_list)
 
     def on_loop(self):
-        self.char.onGround = False
+        self.player.onGround = False
         for platform in self.plats:
-            if self.char.scrnbtm(self.screen_height):
-                self.char.setBottom(self.screen_height + 1)
+            if self.player.scrnbtm(self.screen_height):
+                self.player.setBottom(self.screen_height + 1)
 
-            if self.char.platTopCollide(platform):
-                self.char.setBottom(platform.top)
+            if self.player.platTopCollide(platform):
+                self.player.setBottom(platform.top)
             
-            if self.char.platBtmCollide(platform):
-                self.char.hitHead(platform.bottom )
+            if self.player.platBtmCollide(platform):
+                self.player.hitHead(platform.bottom )
 
-            if self.char.platLeftCollide(platform):
-                self.char.hitRight(platform.left)
+            if self.player.platLeftCollide(platform):
+                self.player.hitRight(platform.left)
 
-            if self.char.platRightCollide(platform):
-                self.char.hitLeft(platform.right)
+            if self.player.platRightCollide(platform):
+                self.player.hitLeft(platform.right)
             
-        self.char.advance()
+        self.player.advance()
 
         for each in self.bullet_list:
             if each.x < 0 or each.x > self.screen_width:
@@ -111,7 +111,7 @@ class Game:
     def on_render(self):
         self.screen.fill((255,255,255))
 
-        self.char.draw(self.screen)
+        self.player.draw(self.screen)
 
         for each in self.bullet_list:
             each.draw(self.screen)

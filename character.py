@@ -21,9 +21,6 @@ class Character:
         self.accX = .15
 
 
-    def draw(self, screen):
-        screen.blit(self.surface, self.rect)
-
     def advance(self):
       
       if not self.onGround:

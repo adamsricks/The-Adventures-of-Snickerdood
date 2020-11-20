@@ -35,7 +35,16 @@ class Player(char.Character):
     def advance(self):
         super().advance()
         self.changeDirection()
-        self.gunPoint = self.rect.center
+        if self.direction == "r":
+            self.gunPoint = (self.rect.center[0] + 5, self.rect.center[1] + 3)
+        else:
+            self.gunPoint = (self.rect.center[0] - 5, self.rect.center[1] + 3)
+
+    def draw(self, screen):
+        if self.direction == "r":
+          screen.blit(self.surface, self.rect)
+        else:
+          screen.blit(pygame.transform.flip(self.surface, True, False), self.rect)
 
 
 

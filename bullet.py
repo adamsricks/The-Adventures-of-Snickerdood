@@ -14,7 +14,7 @@ class Bullet(pygame.sprite.Sprite):
 
         # self.rect = self.surface.get_rect(center = (100, 576))
 
-        self.rect = pygame.Rect(self.x,self.y,5,5)
+        self.rect = pygame.Rect(self.x,self.y,5,3)
 
         if direction == "l":
             self.x_movement = -self.speed
