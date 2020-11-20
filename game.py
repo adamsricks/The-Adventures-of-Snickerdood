@@ -1,7 +1,12 @@
 from character import Character
 from player import Player
-import pygame
+from stage import Stage
+from menu import Menu
 
+import pickle
+import sys
+
+import pygame
 from pygame.locals import *
 
 # Set up movement variables.
@@ -24,9 +29,11 @@ class Game:
 
         self.gravity = 0
 
-        self.char = None
+        self.player = None
 
-        self.plats = None
+        self.stage = None
+
+        self.menu = None
 
 
     def on_init(self):
@@ -36,62 +43,81 @@ class Game:
 
         self.gravity = 0.66
 
-        self.char = Player(self.gravity)
+        self.menu = Menu()
 
-        self.plats = [pygame.Rect(0,450,500,50), pygame.Rect(76,350,500,50), pygame.Rect(0,250,500,50), pygame.Rect(76,150,500,50)]
+        # self.stage =  pickle.load( open( "Level1/Stage1", "rb" ) )
+        
+        
+
+        # self.player = Player(self.gravity)
+        # self.player.startPos(self.stage.startDoor.rect)
+
 
 
     def on_event(self, event):
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        
+        if event.type == MOUSEBUTTONUP:
+            levelName = self.menu.getLevel(event.pos)
+            if levelName != None:
+                self.stage = self.stage =  pickle.load( open( levelName + "/Stage1", "rb" ) )
+                self.player = Player(self.gravity)
+                self.player.startPos(self.stage.startDoor.rect)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w:
-                self.char.jump()
+                self.player.jump()
             if event.key == pygame.K_d:
-                self.char.moveRight = True
+                self.player.moveRight = True
             if event.key == pygame.K_a:
-                self.char.moveLeft = True
+                self.player.moveLeft = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_d:
-                self.char.moveRight = False
+                self.player.moveRight = False
             if event.key == pygame.K_a:
-                self.char.moveLeft = False
+                self.player.moveLeft = False
                 
 
        
 
     def on_loop(self):
-        self.char.onGround = False
-        for platform in self.plats:
-            if self.char.scrnbtm(self.screen_height):
-                self.char.setBottom(self.screen_height + 1)
+        if self.player != None:
+            self.player.onGround = False
 
-            if self.char.platTopCollide(platform):
-                self.char.setBottom(platform.top)
+            if self.player.scrnbtm(self.screen_height):
+                self.player.setBottom(self.screen_height + 1)
             
-            if self.char.platBtmCollide(platform):
-                self.char.hitHead(platform.bottom )
+            for platform in self.stage.platforms:
+                if self.player.platTopCollide(platform.rect):
+                    self.player.setBottom(platform.rect.top)
+                
+                if self.player.platBtmCollide(platform.rect):
+                    self.player.hitHead(platform.rect.bottom )
 
-            if self.char.platLeftCollide(platform):
-                self.char.hitRight(platform.left)
+                if self.player.platLeftCollide(platform.rect):
+                    self.player.hitRight(platform.rect.left)
 
-            if self.char.platRightCollide(platform):
-                self.char.hitLeft(platform.right)
-            
-        self.char.advance()
+                if self.player.platRightCollide(platform.rect):
+                    self.player.hitLeft(platform.rect.right)
+
+            if self.player.inDoorWay(self.stage.endDoor.rect):
+                self.stage =  pickle.load( open( self.stage.nextStageName, "rb" ) )
+                self.player.startPos(self.stage.startDoor.rect)
+                
+            self.player.advance()
 
     def on_render(self):
         self.screen.fill((255,255,255))
 
-        self.char.draw(self.screen)
+        if self.stage != None:
+            self.stage.draw(self.screen)
+            self.player.draw(self.screen)
+        else:
+            self.menu.draw(self.screen)
 
-        for platform in self.plats:
-            pygame.draw.rect(self.screen, (0, 0, 0,), platform)
 
         pygame.display.update()
-        self.clock.tick(90)
+        self.clock.tick(120)
         
     def on_cleanup(self):
         pygame.quit()

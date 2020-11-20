@@ -1,2 +1,10 @@
 __pycache__/character.cpython-39.pyc
 __pycache__/game.cpython-39.pyc
+.vscode/.ropeproject/objectdb
+__pycache__/floor.cpython-39.pyc
+__pycache__/levelEditorGame.cpython-39.pyc
+__pycache__/menu.cpython-39.pyc
+__pycache__/platform.cpython-39.pyc
+__pycache__/player.cpython-39.pyc
+__pycache__/stage.cpython-39.pyc
+__pycache__/stageEditor.cpython-39.pyc

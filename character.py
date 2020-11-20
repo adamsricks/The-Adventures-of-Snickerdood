@@ -79,6 +79,9 @@ class Character:
     def scrnbtm(self, sceenbtm):
       return self.rect.bottom > sceenbtm
 
+    def inDoorWay(self, door):
+      return door.collidepoint(self.rect.center)
+
     def setBottom(self, top):
       self.rect.bottom = top
       self.onGround = True

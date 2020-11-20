@@ -6,16 +6,6 @@ class Player(char.Character):
         super().__init__(gravity)
 
         self.health = 200
-
-
-
-# test game loop
-def game_loop():
-    pass
-
-def main():
-    pass
-    
-
-if __name__ == "__main__":
-    main()
+    def startPos(self, rect):
+        self.rect.bottom = rect.bottom
+        self.rect.left = rect.left
