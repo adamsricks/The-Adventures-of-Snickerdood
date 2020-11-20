@@ -102,8 +102,8 @@ class Game:
         self.char.advance()
 
         for each in self.bullet_list:
-            if each.checkCollision(self.char):
-                each.remove()
+            if each.x < 0 or each.x > self.screen_width:
+                each.kill()
             else:
                 each.advance()
             
