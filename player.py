@@ -36,9 +36,9 @@ class Player(char.Character):
         super().advance()
         self.changeDirection()
         if self.direction == "r":
-            self.gunPoint = (self.rect.center[0] + 5, self.rect.center[1] + 3)
+            self.gunPoint = (self.rect.center[0], self.rect.center[1])
         else:
-            self.gunPoint = (self.rect.center[0] - 5, self.rect.center[1] + 3)
+            self.gunPoint = (self.rect.center[0], self.rect.center[1])
 
     def draw(self, screen):
         if self.direction == "r":
