@@ -1,11 +1,11 @@
 import pygame
 import character as char
 
-class Player(char.Character):
+class Player1(char.Character):
     def __init__(self, gravity):
         super().__init__(gravity)
 
-        self.maxSpeed = 3.5
+        self.maxSpeed = 3
         self.accX = .5
 
         self.direction = "r"

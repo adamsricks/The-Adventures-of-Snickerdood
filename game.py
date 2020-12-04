@@ -1,5 +1,5 @@
 from character import Character
-from player import Player
+from player1 import Player1
 
 
 from stage import Stage
@@ -49,7 +49,7 @@ class Game:
         self.screen = pygame.display.set_mode((self.screen_width,self.screen_height)) 
         self.clock = pygame.time.Clock()
 
-        self.gravity = 0.4
+        self.gravity = 0.2
 
 
         self.menu = Menu()
@@ -65,7 +65,7 @@ class Game:
             levelName = self.menu.getLevel(event.pos)
             if levelName != None:
                 self.stage = self.stage =  pickle.load( open( levelName + "/Stage1", "rb" ) )
-                self.player = Player(self.gravity)
+                self.player = Player1(self.gravity)
                 self.player.startPos(self.stage.startDoor.rect)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w or event.key == pygame.K_UP: 

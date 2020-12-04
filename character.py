@@ -17,9 +17,8 @@ class Character:
 
         self.gravity = gravity
 
-        self.maxSpeed = 4
+        self.maxSpeed = 3
         self.accX = .15
-
 
     def advance(self):
       
