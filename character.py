@@ -18,13 +18,18 @@ class Character:
         self.gravity = gravity
 
         self.maxSpeed = 3
+        self.maxFallSpeed = 3
         self.accX = .15
 
     def advance(self):
       
       if not self.onGround:
-        self.movementy += self.gravity
-        self.rect.centery += self.movementy
+        if self.movementy >= self.maxFallSpeed:
+          self.movementy = self.maxFallSpeed
+          self.rect.centery += self.movementy
+        else:
+          self.movementy += self.gravity
+          self.rect.centery += self.movementy
       else:
         self.movementy = 0
         
@@ -45,7 +50,6 @@ class Character:
         if self.movementx > 0:
           self.movementx = 0
         if self.rect.left > 0:
-          
           if self.movementx >= -self.maxSpeed:
             self.movementx -= self.accX
           self.rect.centerx += self.movementx

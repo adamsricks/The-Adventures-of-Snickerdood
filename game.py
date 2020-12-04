@@ -40,9 +40,8 @@ class Game:
 
         self.bullet_list = pygame.sprite.Group()
 
-
+        self.running = False
         self.menu = None
-
 
     def on_init(self):
         pygame.init()
@@ -54,36 +53,34 @@ class Game:
 
         self.menu = Menu()
 
-
-
-
-    def on_event(self, event):
+    def on_event(self, event): 
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         if event.type == MOUSEBUTTONUP:
+            self.running = True
             levelName = self.menu.getLevel(event.pos)
             if levelName != None:
                 self.stage = self.stage =  pickle.load( open( levelName + "/Stage1", "rb" ) )
                 self.player = Player1(self.gravity)
                 self.player.startPos(self.stage.startDoor.rect)
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w or event.key == pygame.K_UP: 
-                self.player.jump()
-            if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                self.player.moveRight = True
-            if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                self.player.moveLeft = True
-            if event.key == pygame.K_SPACE:
-                self.shootBullet()
+        if self.running:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w or event.key == pygame.K_UP: 
+                    self.player.jump()
+                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                    self.player.moveRight = True
+                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                    self.player.moveLeft = True
+                if event.key == pygame.K_SPACE:
+                    self.shootBullet()
 
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                self.player.moveRight = False
-            if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                self.player.moveLeft = False
-                
-
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                    self.player.moveRight = False
+                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                    self.player.moveLeft = False
+        
     def shootBullet(self):
         # This will add a bullet to the bullet list and pass the bullet the end of the gun
         # and the direction that the character is facing
@@ -96,7 +93,7 @@ class Game:
             self.player.onGround = False
 
             if self.player.scrnbtm(self.screen_height):
-                self.player.setBottom(self.screen_height + 1)
+                self.player.startPos(self.stage.startDoor.rect)
             
             for platform in self.stage.platforms:
                 if self.player.platTopCollide(platform.rect):
@@ -124,8 +121,6 @@ class Game:
             else:
                 each.advance()
             
-
-
     def on_render(self):
         self.screen.fill((255,255,255))
 

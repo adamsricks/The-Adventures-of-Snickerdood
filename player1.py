@@ -5,8 +5,18 @@ class Player1(char.Character):
     def __init__(self, gravity):
         super().__init__(gravity)
 
-        self.maxSpeed = 3
-        self.accX = .5
+        self.maxSpeed = 4
+        self.accX = .6
+
+        # these are momentum variables, and are always added to the position of the player character
+        self.movementx = 0
+        self.movementy = 0
+
+        # this is the positive momentum, always added or subtracted to the movement variables
+        self.momentumx = 0
+        self.momentumy = 0
+
+        self.maxFallSpeed = 5
 
         self.direction = "r"
 
@@ -15,14 +25,13 @@ class Player1(char.Character):
         # This will update to give the end of the gun so bullet can grab it when necessary
         self.gunPoint = self.rect.center
 
-        self.jump_height = 8
+        self.jump_height = 6
 
         self.health = 200
 
     def startPos(self, rect):
         self.rect.bottom = rect.bottom
         self.rect.left = rect.left
-
 
     def jump(self):
       if self.onGround:
@@ -44,6 +53,31 @@ class Player1(char.Character):
             self.gunPoint = (self.rect.center[0], self.rect.center[1])
         else:
             self.gunPoint = (self.rect.center[0], self.rect.center[1])
+
+        if self.moveRight:
+            if self.movementx < 0:
+                self.movementx = 0
+            if self.rect.right < 576:
+            
+                if self.movementx <= self.maxSpeed:
+                    self.movementx += self.accX
+                self.rect.centerx += self.movementx
+            else:
+                self.movementx = 0
+                self.rect.right = 576
+
+            
+
+        if self.moveLeft:
+            if self.movementx > 0:
+                self.movementx = 0
+            if self.rect.left > 0:
+                if self.movementx >= -self.maxSpeed:
+                    self.movementx -= self.accX
+                self.rect.centerx += self.movementx
+            else:
+                self.movementx = 0
+                self.rect.left = 0
 
     def draw(self, screen):
         if self.direction == "r":
