@@ -82,6 +82,9 @@ class LevelEditorGame:
                     self.SE.stageCounter += 1
                     self.stage = Stage()
                     self.stage.nextStageName = self.SE.levelName + "/Stage" + str(self.SE.stageCounter)
+                    self.SE.keyPress = ""
+                    self.SE.start = (0, 0)
+                    self.SE.end = (0, 0)
 
                     # self.stage.
                 if event.key == pygame.K_f:
