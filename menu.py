@@ -16,6 +16,6 @@ class Menu():
 
     def getLevel(self, pos):
         if self.level1Rect.collidepoint(pos):
-            return "Level1"
+            return "World 1"
         
         return None

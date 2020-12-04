@@ -49,7 +49,7 @@ class Game:
         self.screen = pygame.display.set_mode((self.screen_width,self.screen_height)) 
         self.clock = pygame.time.Clock()
 
-        self.gravity = 0.66
+        self.gravity = 0.4
 
 
         self.menu = Menu()

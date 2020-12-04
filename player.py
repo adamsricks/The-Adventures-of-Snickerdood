@@ -15,7 +15,7 @@ class Player(char.Character):
         # This will update to give the end of the gun so bullet can grab it when necessary
         self.gunPoint = self.rect.center
 
-        self.jump_height = 13
+        self.jump_height = 8
 
         self.health = 200
 
