@@ -1,4 +1,5 @@
 from floor import Floor
+from newEnemy import Enemy
 import pygame
 from pygame.locals import *
 
@@ -8,7 +9,6 @@ class Stage():
         self.enemy = Enemy(100, 100, 400)
         self.startDoor = None
         self.endDoor = None
-        1
         self.name = ""
         self.nextStageName = ""
 
