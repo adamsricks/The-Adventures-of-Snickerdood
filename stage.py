@@ -9,6 +9,8 @@ class Stage():
         self.enemies = []
         self.startDoor = None
         self.endDoor = None
+ 
+        # self.enemy = Enemy(300, 100, 576)
         # self.startDoor = pygame.Rect(10, 10, 40, 50)
         # self.endDoor = pygame.Rect(200, 300, 40, 50)
         self.name = ""

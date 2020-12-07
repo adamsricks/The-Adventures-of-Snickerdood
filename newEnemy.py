@@ -92,8 +92,8 @@ class Creature:
              window.blit(self.creature_img_left[self.walkCount//3], (self.x,self.y))
              self.walkCount += 1
 
-         for bullet in self.bullets:
-            bullet.draw(window)
+        #  for bullet in self.bullets:
+        #     bullet.draw(window)
     
     def move(self, path, x, y, eyeX, eyeY):
         # if abs(y - self.y) < eyeY:
@@ -175,47 +175,6 @@ class Creature:
     #Gets height of ship image 
     def get_height(self):
         return self.creature_img_standing.get_height()
-
-#Player class
-# class Player(Creature):
-#     def __init__(self, x, y, walkCount = 0, health=100):
-#         super().__init__(x, y, walkCount, health)
-#         self.creature_img_left = playerleft
-#         self.creature_img_right = playerrights
-#         self.creature_img_standing = stand
-#         self.bullet_img = bullet_img
-#         self.mask = pygame.mask.from_surface(self.creature_img_standing)
-#         self.max_health = health
-#         self.jumpCount = 10
-#         self.vel = 7
-#         self.standing = True
-#         self.isJump = False
-#         self.left = False
-#         self.right = False
-#         self.facing = None
-        
-#     #Checks to see if bullet hits object
-#     def move_bullets(self, vel, objs):
-#         self.cooldown()
-#         for bullet in self.bullets:
-#             bullet.move(vel)
-#             if bullet.off_screen(WIDTH):
-#                 self.bullets.remove(bullet)
-#             else:
-#                 for obj in objs:
-#                     if bullet.collision(obj):
-#                         objs.remove(obj) #Removes the bullets and obj it hits
-#                         if bullet in self.bullets:
-#                             self.bullets.remove(bullet)
-#     #Draws player
-#     def draw(self, window):
-#         super().draw(window) #Calls the ship initall variables
-#         self.healthbar(window)
-#     #Creates a health bar for player
-#     def healthbar(self, window):
-#         pygame.draw.rect(window, (255,0,0), (self.x, self.y + self.creature_img_standing.get_height() + 10, self.creature_img_standing.get_width(), 10))
-#         pygame.draw.rect(window, (0,255,0), (self.x, self.y + self.creature_img_standing.get_height() + 10, self.creature_img_standing.get_width() * (self.health/self.max_health), 10))
-
 #Enemy class
 class Enemy(Creature):
  
