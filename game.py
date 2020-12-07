@@ -56,6 +56,13 @@ class Game:
 
         self.menu = Menu()
 
+        self.stage = Stage()
+        self.player = Player1(self.gravity)
+        self.player.startPos(self.stage.startDoor)
+
+
+        
+
 
         pygame.time.set_timer(self.PLAYERANIMATE, 75)
 
