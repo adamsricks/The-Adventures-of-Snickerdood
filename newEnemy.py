@@ -91,39 +91,39 @@ class Creature:
             bullet.draw(window)
     
     def move(self, path, x, y, eyeX, eyeY):
-        if abs(y - self.y) < eyeY:
-            if x > self.x:
-                self.vel = 3
-                facing = 1
-                if self.cool_down_counter == 0:
-                    # bullet = Bullet(self.x, self.y, self.bullet_img, facing)
-                    # self.bullets.append(bullet)
-                    self.cool_down_counter = 1  
+        # if abs(y - self.y) < eyeY:
+        #     if x > self.x:
+        #         self.vel = 3
+        #         facing = 1
+        #         if self.cool_down_counter == 0:
+        #             # bullet = Bullet(self.x, self.y, self.bullet_img, facing)
+        #             # self.bullets.append(bullet)
+        #             self.cool_down_counter = 1  
             
-            elif y < self.y:
-                self.vel = -3
-                facing = -1
-                if self.cool_down_counter == 0:
-                    # bullet = Bullet(self.x, self.y, self.bullet_img, facing)
-                    # self.bullets.append(bullet)
-                    self.cool_down_counter = 1
+        #     elif y < self.y:
+        #         self.vel = -3
+        #         facing = -1
+        #         if self.cool_down_counter == 0:
+        #             # bullet = Bullet(self.x, self.y, self.bullet_img, facing)
+        #             # self.bullets.append(bullet)
+        #             self.cool_down_counter = 1
                     
-            if abs(x - self.x) < eyeX:
-                if x > self.x:
-                    self.vel = 3
-                    facing = 1
-                    if self.cool_down_counter == 0:
-                        # bullet = Bullet(self.x, self.y, self.bullet_img, facing)
-                        # self.bullets.append(bullet)
-                        self.cool_down_counter = 1  
+        #     if abs(x - self.x) < eyeX:
+        #         if x > self.x:
+        #             self.vel = 3
+        #             facing = 1
+        #             if self.cool_down_counter == 0:
+        #                 # bullet = Bullet(self.x, self.y, self.bullet_img, facing)
+        #                 # self.bullets.append(bullet)
+        #                 self.cool_down_counter = 1  
                     
-                elif x < self.x:
-                    self.vel = -3
-                    facing = -1
-                    if self.cool_down_counter == 0:
-                        # bullet = Bullet(self.x, self.y, self.bullet_img, facing)
-                        # self.bullets.append(bullet)
-                        self.cool_down_counter = 1
+        #         elif x < self.x:
+        #             self.vel = -3
+        #             facing = -1
+        #             if self.cool_down_counter == 0:
+        #                 # bullet = Bullet(self.x, self.y, self.bullet_img, facing)
+        #                 # self.bullets.append(bullet)
+        #                 self.cool_down_counter = 1
         if self.vel > 0:
             
             if self.x < path[1] + self.vel:
