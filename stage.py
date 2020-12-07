@@ -6,7 +6,7 @@ from pygame.locals import *
 class Stage():
     def __init__(self):
         self.platforms = []
-        self.enemy = Enemy(100, 100, 400)
+        self.enemy = Enemy(300, 100, 576)
         self.startDoor = pygame.Rect(10, 10, 40, 50)
         self.endDoor = pygame.Rect(200, 300, 40, 50)
         self.name = ""
@@ -24,6 +24,8 @@ class Stage():
             # self.endDoor.draw(screen)
        
     def run(self):
+        x = 200
+        y = 1
         self.enemy.append(self.enemy)
         for enemyies in enemy[:]:
             enemy.move(x, y)
