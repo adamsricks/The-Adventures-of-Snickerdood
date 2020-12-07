@@ -2,13 +2,16 @@ import pygame
 from pygame.locals import *
 
 class Floor():
-    def __init__(self, point1 = (0, 0), point2 = (0, 0)):
-        
-        self.color = (0, 0, 0,)
-        self.rect = pygame.Rect(point1, point2)
-        self.rect.normalize()
-
+    def __init__(self, point1 = (0, 0)):      
+        self.center = point1
+        self.rect = None
     def draw(self, screen):
-        pygame.draw.rect(screen, self.color, self.rect)
+        surface = pygame.image.load("character pic/log_platform.png").convert_alpha()
+
+        if self.rect == None:
+            self.rect = surface.get_rect(center = self.center)
+
+        screen.blit(surface, self.rect)
+
 
     

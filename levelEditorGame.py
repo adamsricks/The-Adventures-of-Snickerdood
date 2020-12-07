@@ -63,8 +63,8 @@ class LevelEditorGame:
             if self.SE.keyPress == "door2":
                 self.stage.endDoor = self.SE.addDoor()
 
-        if event.type == MOUSEMOTION and self.SE.drawing:
-            self.SE.onMouseMotion(event.pos)
+        # if event.type == MOUSEMOTION and self.SE.drawing:
+        #     self.SE.onMouseMotion(event.pos)
             
         
         if event.type == KEYDOWN:

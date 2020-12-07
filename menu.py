@@ -41,11 +41,11 @@ class Menu():
 
     def getLevel(self, pos):
         if self.level1Rect.collidepoint(pos):
-            return "World 1"
+            return "name"
         if self.level2Rect.collidepoint(pos):
-            return "Level1"
+            return ""
         if self.level3Rect.collidepoint(pos):
-            return "Test Stage 1"
+            return ""
         if self.level4Rect.collidepoint(pos):
             return ""
         if self.level5Rect.collidepoint(pos):

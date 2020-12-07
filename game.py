@@ -40,6 +40,8 @@ class Game:
 
         self.bullet_list = pygame.sprite.Group()
 
+        self.PLAYERANIMATE = pygame.USEREVENT
+
 
         self.menu = None
 
@@ -54,6 +56,8 @@ class Game:
 
         self.menu = Menu()
 
+        pygame.time.set_timer(self.PLAYERANIMATE, 75)
+
 
 
 
@@ -66,7 +70,7 @@ class Game:
             if levelName != None:
                 self.stage = self.stage =  pickle.load( open( levelName + "/Stage1", "rb" ) )
                 self.player = Player1(self.gravity)
-                self.player.startPos(self.stage.startDoor.rect)
+                self.player.startPos(self.stage.startDoor)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w or event.key == pygame.K_UP: 
                 self.player.jump()
@@ -82,6 +86,8 @@ class Game:
                 self.player.moveRight = False
             if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                 self.player.moveLeft = False
+        if event.type == self.PLAYERANIMATE and self.player != None:
+            self.player.nextAnimation()
                 
 
     def shootBullet(self):
@@ -111,9 +117,9 @@ class Game:
                 if self.player.platRightCollide(platform.rect):
                     self.player.hitLeft(platform.rect.right)
 
-            if self.player.inDoorWay(self.stage.endDoor.rect):
+            if self.player.inDoorWay(self.stage.endDoor):
                 self.stage =  pickle.load( open( self.stage.nextStageName, "rb" ) )
-                self.player.startPos(self.stage.startDoor.rect)
+                self.player.startPos(self.stage.startDoor)
                 
             self.player.advance()
 

@@ -41,6 +41,8 @@ class Character:
           self.movementx = 0
           self.rect.right = 576
 
+
+
       if self.moveLeft:
         if self.movementx > 0:
           self.movementx = 0
@@ -52,13 +54,15 @@ class Character:
         else:
           self.movementx = 0
           self.rect.left = 0
+        
+
 
     def jump(self):
       if self.onGround:
         self.onGround = False
         self.rect.bottom = self.rect.bottom - 1
         self.movementy = 0
-        self.movementy -= 12
+        self.movementy -= 3
     
     def platTopCollide(self, platform):
       return platform.collidepoint(self.rect.midbottom)

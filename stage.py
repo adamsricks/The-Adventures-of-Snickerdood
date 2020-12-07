@@ -1,4 +1,6 @@
 from floor import Floor
+import pygame
+from pygame.locals import *
 
 class Stage():
     def __init__(self):
@@ -15,6 +17,8 @@ class Stage():
         for platform in self.platforms:
             platform.draw(screen)
         if self.startDoor != None:
-            self.startDoor.draw(screen)
+            pygame.draw.rect(screen, (255, 255,0), self.startDoor)
+            # self.startDoor.draw(screen)
         if self.endDoor != None:   
-            self.endDoor.draw(screen)
+            pygame.draw.rect(screen, (255,0 ,0), self.endDoor)
+            # self.endDoor.draw(screen)

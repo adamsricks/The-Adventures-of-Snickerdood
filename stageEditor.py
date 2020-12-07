@@ -18,8 +18,8 @@ class StageEditor():
 
 
     def draw(self, screen):
-        self.size = self.end[0]-self.start[0], self.end[1]-self.start[1]
-        pygame.draw.rect(screen, (0, 0, 0), (self.start, self.size), 1)
+        # self.size = self.end[0]-self.start[0], self.end[1]-self.start[1]
+        # pygame.draw.rect(screen, (0, 0, 0), (self.start, self.size), 1)
 
         self.drawTextbox(screen)
 
@@ -29,32 +29,32 @@ class StageEditor():
     def onMouseDown(self, pos):
         if self.keyPress == "floor":
             self.start = pos
-            self.end = pos
+
             self.drawing = True
         
 
     def onMouseUp(self, pos):
         if self.keyPress == "floor":
-            self.end = pos
+
             self.drawing = False
         if self.keyPress == "door1" or self.keyPress == "door2":
             self.start = pos
-            self.end = pos
+
 
     def onMouseMotion(self, pos):
         if self.keyPress == "floor":
             self.end = pos
 
     def addPlatform(self):
-        return Floor(self.start, self.size)
+        return Floor(self.start)
     
     def addDoor(self):
         
-        door = Floor(self.start, (30,50))
-        if self.keyPress == "door1":
-            door.color = (255, 255,0)
-        else:
-            door.color = (255,0 ,0)
+        door = pygame.Rect(self.start[0], self.start[1], 40, 50)
+        # if self.keyPress == "door1":
+        #     door.color = (255, 255,0)
+        # else:
+        #     door.color = (255,0 ,0)
         return door
 
     def addBaddie(self):
