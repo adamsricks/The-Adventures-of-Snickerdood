@@ -27,5 +27,6 @@ class Stage():
         x = 200
         y = 1
         self.enemy.append(self.enemy)
-        for enemyies in enemy[:]:
-            enemy.move(x, y)
+        self.enemy.move(x, y)
+        # for enemyies in enemy[:]:
+        #     enemy.move(x, y)
