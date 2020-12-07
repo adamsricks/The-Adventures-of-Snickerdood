@@ -20,7 +20,7 @@ class Menu():
         self.level5Name = "Test World 3"
         self.Level5txt = font.render(self.level5Name, True, pygame.Color('black'))
         self.level6Rect = pygame.Rect(10, 170, 140, 32)
-        self.level6Name = "Level 6"
+        self.level6Name = "Demo World"
         self.Level6txt = font.render(self.level6Name, True, pygame.Color('black'))
         self.level7Rect = pygame.Rect(10, 202, 140, 32)
         self.level7Name = "Level 7"

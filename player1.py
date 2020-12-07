@@ -8,7 +8,7 @@ class Player1(char.Character):
         # speed cap for x
         self.maxSpeed = 3
         # constant that's added to the momentum
-        self.accX = .4
+        self.accX = .3
         
         self.movementx = 0
         self.movementy = 0
@@ -17,7 +17,7 @@ class Player1(char.Character):
         self.drag = .17
 
         # speed cap for y
-        self.maxFallSpeed = 5
+        self.maxFallSpeed = 7
 
         self.direction = "r"
 
