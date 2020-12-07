@@ -5,7 +5,7 @@ class Menu():
     def __init__(self):
         font = pygame.font.Font(None, 32)
         self.level1Rect = pygame.Rect(10, 10, 140, 32)
-        self.level1Name = "World 1"
+        self.level1Name = "name"
         self.Level1txt = font.render(self.level1Name, True, pygame.Color('black'))
         self.level2Rect = pygame.Rect(10, 42, 140, 32)
         self.level2Name = "World 2"

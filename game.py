@@ -89,6 +89,8 @@ class Game:
                     self.player.moveRight = False
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     self.player.moveLeft = False
+            if event.type == self.PLAYERANIMATE:
+                self.player.nextAnimation()
         
     def shootBullet(self):
         # This will add a bullet to the bullet list and pass the bullet the end of the gun
@@ -102,7 +104,7 @@ class Game:
             self.player.onGround = False
 
             if self.player.scrnbtm(self.screen_height):
-                self.player.startPos(self.stage.startDoor.rect)
+                self.player.startPos(self.stage.startDoor)
             
             for platform in self.stage.platforms:
                 if self.player.platTopCollide(platform.rect):

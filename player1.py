@@ -40,11 +40,7 @@ class Player1(char.Character):
         # This will update to give the end of the gun so bullet can grab it when necessary
         self.gunPoint = self.rect.center
 
-<<<<<<< HEAD
-        self.jump_height = 3
-=======
         self.jump_height = 6
->>>>>>> c8d563ee05de059ddb2d62aeabac2105ab8cde70
 
         self.health = 200
 
@@ -66,43 +62,11 @@ class Player1(char.Character):
             self.direction = 'l'
 
     def advance(self):
-<<<<<<< HEAD
-        super().advance()
-
-=======
->>>>>>> c8d563ee05de059ddb2d62aeabac2105ab8cde70
-        self.changeDirection()
-        if self.direction == "r":
-            self.gunPoint = (self.rect.center[0], self.rect.center[1])
-        else:
-            self.gunPoint = (self.rect.center[0], self.rect.center[1])
-
-<<<<<<< HEAD
-        if not self.moveRight and not self.moveLeft:
-            if self.animation != "i":
-                self.animation = "i"
-                self.drawList = self.idleList
-                self.animatedIndex = 0
         
-        if self.moveRight or self.moveLeft:
-            if self.animation != "r":
-                self.animation = "r"
-                self.drawList = self.runList
-                self.animatedIndex = 0
-        if self.movementy > 0:
-            self.animation = "falling"
-            self.animatedIndex = 0
-            self.drawList = self.jumpList[4:]
-        
-        if self.movementy < 0:
-            self.animation = "up"
-            self.animatedIndex = 0
-            self.drawList = self.jumpList[:5]
 
             
 
         # print(self.movementy)
-=======
         if not self.onGround:
             if self.movementy >= self.maxFallSpeed:
                 self.movementy = self.maxFallSpeed
@@ -146,7 +110,33 @@ class Player1(char.Character):
         # actually moves the character
         self.rect.centerx += self.movementx
         #print(f"movementx after = {self.movementx}")
->>>>>>> c8d563ee05de059ddb2d62aeabac2105ab8cde70
+
+        self.changeDirection()
+        if self.direction == "r":
+            self.gunPoint = (self.rect.center[0], self.rect.center[1])
+        else:
+            self.gunPoint = (self.rect.center[0], self.rect.center[1])
+
+        if not self.moveRight and not self.moveLeft:
+            if self.animation != "i":
+                self.animation = "i"
+                self.drawList = self.idleList
+                self.animatedIndex = 0
+        
+        if self.moveRight or self.moveLeft:
+            if self.animation != "r":
+                self.animation = "r"
+                self.drawList = self.runList
+                self.animatedIndex = 0
+        if self.movementy > 0:
+            self.animation = "falling"
+            self.animatedIndex = 0
+            self.drawList = self.jumpList[4:]
+        
+        if self.movementy < 0:
+            self.animation = "up"
+            self.animatedIndex = 0
+            self.drawList = self.jumpList[:5]
 
     def draw(self, screen):
         if self.direction == "r":

@@ -5,7 +5,6 @@ from pygame.locals import *
 class Stage():
     def __init__(self):
         self.platforms = []
-        self.enemy = Enemy(100, 100, 400)
         self.startDoor = None
         self.endDoor = None
         
@@ -14,8 +13,6 @@ class Stage():
 
 
     def draw(self, screen):
-        # for enemy in enemies:
-        self.enemy.draw(screen)
         for platform in self.platforms:
             platform.draw(screen)
         if self.startDoor != None:
