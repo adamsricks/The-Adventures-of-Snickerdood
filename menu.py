@@ -5,23 +5,26 @@ class Menu():
     def __init__(self):
         font = pygame.font.Font(None, 32)
         self.level1Rect = pygame.Rect(10, 10, 140, 32)
-        self.Level1txt = font.render("World 1", True, pygame.Color('black'))
+        self.level1Name = "World 1"
+        self.Level1txt = font.render(self.level1Name, True, pygame.Color('black'))
         self.level2Rect = pygame.Rect(10, 42, 140, 32)
-        self.Level2txt = font.render("World 2", True, pygame.Color('black'))
+        self.level2Name = "World 2"
+        self.Level2txt = font.render(self.level2Name, True, pygame.Color('black'))
         self.level3Rect = pygame.Rect(10, 74, 140, 32)
-        self.Level3txt = font.render("Test World", True, pygame.Color('black'))
+        self.level3Name = "Test World 1"
+        self.Level3txt = font.render(self.level3Name, True, pygame.Color('black'))
         self.level4Rect = pygame.Rect(10, 106, 140, 32)
-        self.Level4txt = font.render("Level 4", True, pygame.Color('black'))
+        self.level4Name = "Test World 2"
+        self.Level4txt = font.render(self.level4Name, True, pygame.Color('black'))
         self.level5Rect = pygame.Rect(10, 138, 140, 32)
-        self.Level5txt = font.render("Level 5", True, pygame.Color('black'))
+        self.level5Name = "Test World 3"
+        self.Level5txt = font.render(self.level5Name, True, pygame.Color('black'))
         self.level6Rect = pygame.Rect(10, 170, 140, 32)
-        self.Level6txt = font.render("Level 6", True, pygame.Color('black'))
+        self.level6Name = "Demo World"
+        self.Level6txt = font.render(self.level6Name, True, pygame.Color('black'))
         self.level7Rect = pygame.Rect(10, 202, 140, 32)
-        self.Level7txt = font.render("Level 7", True, pygame.Color('black'))
-
-        
-        
-
+        self.level7Name = "Level 7"
+        self.Level7txt = font.render(self.level7Name, True, pygame.Color('black'))
 
     def draw(self, screen):
         screen.blit(self.Level1txt, (self.level1Rect.x+5, self.level1Rect.y+5))
@@ -41,18 +44,18 @@ class Menu():
 
     def getLevel(self, pos):
         if self.level1Rect.collidepoint(pos):
-            return "name"
+            return self.level1Name
         if self.level2Rect.collidepoint(pos):
-            return ""
+            return self.level2Name
         if self.level3Rect.collidepoint(pos):
-            return ""
+            return self.level3Name
         if self.level4Rect.collidepoint(pos):
-            return ""
+            return self.level4Name
         if self.level5Rect.collidepoint(pos):
-            return ""
+            return self.level5Name
         if self.level6Rect.collidepoint(pos):
-            return ""
+            return self.level6Name
         if self.level7Rect.collidepoint(pos):
-            return ""
+            return self.level7Name
         
         return None
