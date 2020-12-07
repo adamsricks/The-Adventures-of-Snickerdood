@@ -1,4 +1,5 @@
 from floor import Floor
+from newEnemy import Enemy
 
 import pygame
 from pygame.locals import *
@@ -37,7 +38,7 @@ class StageEditor():
         if self.keyPress == "floor":
 
             self.drawing = False
-        if self.keyPress == "door1" or self.keyPress == "door2":
+        if self.keyPress == "door1" or self.keyPress == "door2" or self.keyPress == "enemy":
             self.start = pos
 
 
@@ -67,3 +68,6 @@ class StageEditor():
         
         screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
         pygame.draw.rect(screen, pygame.Color('lightskyblue3'), input_box, 2)
+    
+    def addEnemy(self):
+        return Enemy(self.start[0], self.start[1], 576)

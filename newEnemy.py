@@ -15,26 +15,31 @@ pygame.init()
 # pygame.display.set_caption("Enemy Tutorial")
 
 # Load images
-# playerleft = [pygame.image.load('pics\megaman-left-1.bmp'), pygame.image.load('pics\megaman-left-2.bmp'), pygame.image.load('pics\megaman-left-3.bmp'), 
-# pygame.image.load('pics\megaman-left-4.bmp'), pygame.image.load('pics\megaman-left-5.bmp'), pygame.image.load('pics\megaman-left-6.bmp')]
+# playerleft = [pygame.image.load('pics/megaman-left-1.bmp'), pygame.image.load('pics/megaman-left-2.bmp'), pygame.image.load('pics/megaman-left-3.bmp'), 
+# pygame.image.load('pics/megaman-left-4.bmp'), pygame.image.load('pics/megaman-left-5.bmp'), pygame.image.load('pics/megaman-left-6.bmp')]
 
-# playerrights = [pygame.image.load('pics\megaman-right-1.bmp'), pygame.image.load('pics\megaman-right-2.bmp'), pygame.image.load('pics\megaman-right-3.bmp'), 
-# pygame.image.load('pics\megaman-right-4.bmp'), pygame.image.load('pics\megaman-right-5.bmp'), pygame.image.load('pics\megaman-right-6.bmp')]
+# playerrights = [pygame.image.load('pics/megaman-right-1.bmp'), pygame.image.load('pics/megaman-right-2.bmp'), pygame.image.load('pics/megaman-right-3.bmp'), 
+# pygame.image.load('pics/megaman-right-4.bmp'), pygame.image.load('pics/megaman-right-5.bmp'), pygame.image.load('pics/megaman-right-6.bmp')]
 
 bullet_img = pygame.image.load(os.path.join('pics','bullet-1.bmp'))
 
-# stand = pygame.image.load('test_games\R6.png')
+# stand = pygame.image.load('TestGames/R6.png')
 # Enemy image
-#flameLeft = [pygame.image.load('pics\heatman-flaming-left-1.bmp'), pygame.image.load('pics\heatman-flaming-left-2.bmp'), pygame.image.load('pics\heatman-flaming-left-3.bmp'), pygame.image.load('pics\heatman-flaming-left-4.bmp'), pygame.image.load('pics\heatman-flaming-left-5.bmp'), pygame.image.load('pics\heatman-flaming-left-6.bmp'), pygame.image.load('pics\heatman-flaming-left-7.bmp'), pygame.image.load('pics\heatman-flaming-left-8.bmp')]
-#flameRight = [pygame.image.load('pics\heatman-flaming-right-1.bmp'), pygame.image.load('pics\heatman-flaming-right-2.bmp'), pygame.image.load('pics\heatman-flaming-right-3.bmp'), pygame.image.load('pics\heatman-flaming-right-4.bmp'), pygame.image.load('pics\heatman-flaming-right-5.bmp'), pygame.image.load('pics\heatman-flaming-right-6.bmp'), pygame.image.load('pics\heatman-flaming-right-7.bmp'), pygame.image.load('pics\heatman-flaming-right-8.bmp')]
-walkRight = [pygame.image.load('test_games\R1E.png'), pygame.image.load('test_games\R2E.png'), pygame.image.load('test_games\R3E.png'), pygame.image.load('test_games\R4E.png'), pygame.image.load('test_games\R5E.png'), pygame.image.load('test_games\R6E.png'), pygame.image.load('test_games\R7E.png'), pygame.image.load('test_games\R8E.png'), pygame.image.load('test_games\R9E.png'), pygame.image.load('test_games\R10E.png'), pygame.image.load('test_games\R11E.png')]
-walkLeft = [pygame.image.load('test_games\L1E.png'), pygame.image.load('test_games\L2E.png'), pygame.image.load('test_games\L3E.png'), pygame.image.load('test_games\L4E.png'), pygame.image.load('test_games\L5E.png'), pygame.image.load('test_games\L6E.png'), pygame.image.load('test_games\L7E.png'), pygame.image.load('test_games\L8E.png'), pygame.image.load('test_games\L9E.png'), pygame.image.load('test_games\L10E.png'), pygame.image.load('test_games\L11E.png')]
+#flameLeft = [pygame.image.load('pics/heatman-flaming-left-1.bmp'), pygame.image.load('pics/heatman-flaming-left-2.bmp'), pygame.image.load('pics/heatman-flaming-left-3.bmp'), pygame.image.load('pics/heatman-flaming-left-4.bmp'), pygame.image.load('pics/heatman-flaming-left-5.bmp'), pygame.image.load('pics/heatman-flaming-left-6.bmp'), pygame.image.load('pics/heatman-flaming-left-7.bmp'), pygame.image.load('pics/heatman-flaming-left-8.bmp')]
+#flameRight = [pygame.image.load('pics/heatman-flaming-right-1.bmp'), pygame.image.load('pics/heatman-flaming-right-2.bmp'), pygame.image.load('pics/heatman-flaming-right-3.bmp'), pygame.image.load('pics/heatman-flaming-right-4.bmp'), pygame.image.load('pics/heatman-flaming-right-5.bmp'), pygame.image.load('pics/heatman-flaming-right-6.bmp'), pygame.image.load('pics/heatman-flaming-right-7.bmp'), pygame.image.load('pics/heatman-flaming-right-8.bmp')]
+# walkRight = [pygame.image.load('TestGames/R1E.png'), pygame.image.load('TestGames/R2E.png'), pygame.image.load('TestGames/R3E.png'), pygame.image.load('TestGames/R4E.png'), pygame.image.load('TestGames/R5E.png'), pygame.image.load('TestGames/R6E.png'), pygame.image.load('TestGames/R7E.png'), pygame.image.load('TestGames/R8E.png'), pygame.image.load('TestGames/R9E.png'), pygame.image.load('TestGames/R10E.png'), pygame.image.load('TestGames/R11E.png')]
+# walkLeft = [pygame.image.load('TestGames/L1E.png'), pygame.image.load('TestGames/L2E.png'), pygame.image.load('TestGames/L3E.png'), pygame.image.load('TestGames/L4E.png'), pygame.image.load('TestGames/L5E.png'), pygame.image.load('TestGames/L6E.png'), pygame.image.load('TestGames/L7E.png'), pygame.image.load('TestGames/L8E.png'), pygame.image.load('TestGames/L9E.png'), pygame.image.load('TestGames/L10E.png'), pygame.image.load('TestGames/L11E.png')]
+
+walkRight = [pygame.image.load('TestGames/R1E.png'), pygame.image.load('TestGames/R2E.png'), pygame.image.load('TestGames/R3E.png'), pygame.image.load('TestGames/R4E.png'), pygame.image.load('TestGames/R5E.png'), pygame.image.load('TestGames/R6E.png'), pygame.image.load('TestGames/R7E.png'), pygame.image.load('TestGames/R8E.png'), pygame.image.load('TestGames/R9E.png'), pygame.image.load('TestGames/R10E.png'), pygame.image.load('TestGames/R11E.png')]
+walkLeft = [pygame.image.load('TestGames/L1E.png'), pygame.image.load('TestGames/L2E.png'), pygame.image.load('TestGames/L3E.png'), pygame.image.load('TestGames/L4E.png'), pygame.image.load('TestGames/L5E.png'), pygame.image.load('TestGames/L6E.png'), pygame.image.load('TestGames/L7E.png'), pygame.image.load('TestGames/L8E.png'), pygame.image.load('TestGames/L9E.png'), pygame.image.load('TestGames/L10E.png'), pygame.image.load('TestGames/L11E.png')]
+
+
 # Lasers
 bullet_img = pygame.image.load(os.path.join('pics','bullet-1.bmp'))
 
 # Background
-# bg = pygame.transform.scale(pygame.image.load('test_games\\bg.png'), (WIDTH, HEIGHT))
-char = pygame.image.load('test_games\standing.png')
+# bg = pygame.transform.scale(pygame.image.load('TestGames//bg.png'), (WIDTH, HEIGHT))
+char = pygame.image.load('TestGames/standing.png')
 # Background music
 clock = pygame.time.Clock()
 
