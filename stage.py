@@ -7,7 +7,7 @@ class Stage():
         self.platforms = []
         self.startDoor = None
         self.endDoor = None
-        
+        #hello
         self.name = ""
         self.nextStageName = ""
 
