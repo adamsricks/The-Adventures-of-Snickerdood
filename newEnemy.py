@@ -5,7 +5,7 @@ import random
 from character import Character
 from pygame.locals import *
 from pygame import mixer
-LWfrom animation import Animation
+from animation import Animation
 
 
 
