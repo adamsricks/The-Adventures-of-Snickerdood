@@ -78,19 +78,21 @@ class Creature:
     #Draws the ship
     
     def draw(self, window):
-         if self.walkCount + 1 >= 18:
-                self.walkCount = 0
-         if self.vel > 0:
-             window.blit(self.creature_img_right[self.walkCount//3], (self.x,self.y))
-             self.walkCount += 1
-         else:
-             window.blit(self.creature_img_left[self.walkCount//3], (self.x,self.y))
-             self.walkCount += 1
+        print("draw")
+        if self.walkCount + 1 >= 18:
+            self.walkCount = 0
+        if self.vel > 0:
+            window.blit(self.creature_img_right[self.walkCount//3], (self.x,self.y))
+            self.walkCount += 1
+        else:
+            window.blit(self.creature_img_left[self.walkCount//3], (self.x,self.y))
+            self.walkCount += 1
 
         #  for bullet in self.bullets:
         #     bullet.draw(window)
     
     def move(self, path, x, y, eyeX, eyeY):
+        print("hello move")
         # if abs(y - self.y) < eyeY:
         #     if x > self.x:
         #         self.vel = 3
@@ -125,7 +127,6 @@ class Creature:
         #                 # self.bullets.append(bullet)
         #                 self.cool_down_counter = 1
         if self.vel > 0:
-            
             if self.x < path[1] + self.vel:
                 self.x += self.vel
             else:

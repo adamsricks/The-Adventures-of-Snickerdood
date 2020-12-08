@@ -14,6 +14,9 @@ class Stage():
 
     def draw(self, screen):
         self.enemy.draw(screen)
+        x = 200
+        y = 1
+        self.enemy.move(x, y)
         for platform in self.platforms:
             platform.draw(screen)
         if self.startDoor != None:
