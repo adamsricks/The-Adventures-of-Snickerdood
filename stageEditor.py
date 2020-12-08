@@ -70,4 +70,4 @@ class StageEditor():
         pygame.draw.rect(screen, pygame.Color('lightskyblue3'), input_box, 2)
     
     def addEnemy(self):
-        return Enemy(self.start[0], self.start[1], 576)
+        return Enemy(self.start[0], self.start[1])
