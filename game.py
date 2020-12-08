@@ -106,6 +106,7 @@ class Game:
         bullet.add(self.bullet_list)
 
     def on_loop(self):
+        self.stage.run()
 
         if self.player != None:
             self.player.onGround = False

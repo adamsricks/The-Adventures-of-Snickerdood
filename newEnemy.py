@@ -155,18 +155,18 @@ class Creature:
 class Enemy(Creature):
  
     #Enemy inital varibles            
-    def __init__(self, x, y, end, health=100):
+    def __init__(self, x, y, health=100):
         super().__init__(x, y, health)
         self.creature_img_left = walkLeft
         self.creature_img_right = walkRight
         self.creature_img_standing = char
         self.bullet_img = bullet_img
         self.mask = pygame.mask.from_surface(self.creature_img_standing)
-        self.path = [0, end]
+        self.path = [x - 30, x + 30]
         self.eyeX = 300
         self.eyeY = 200
         self.walkCount
-        self.vel = random.randrange(2, 5)
+        self.vel = random.randrange(1, 2)
                 
     def move(self, x, y):
         super().move(self.path, x, y, self.eyeX, self.eyeY)                  

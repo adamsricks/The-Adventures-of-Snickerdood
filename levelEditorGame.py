@@ -115,7 +115,7 @@ class LevelEditorGame:
        
 
     def on_loop(self):
-        pass
+        self.stage.run()
 
     def on_render(self):
         self.screen.fill((255,255,255))

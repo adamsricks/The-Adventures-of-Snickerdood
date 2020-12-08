@@ -10,19 +10,18 @@ class Stage():
         self.startDoor = None
         self.endDoor = None
  
-        # self.enemy = Enemy(300, 100, 576)
+     
         # self.startDoor = pygame.Rect(10, 10, 40, 50)
         # self.endDoor = pygame.Rect(200, 300, 40, 50)
         self.name = ""
         self.nextStageName = ""
 
     def draw(self, screen):
-        self.enemy.draw(screen)
-        x = 200
-        y = 1
-        self.enemy.move(x, y)
+        # self.enemy.draw(screen)
+       
         for enemy in self.enemies:
             enemy.draw(screen)
+             
 
         for platform in self.platforms:
             platform.draw(screen)
@@ -36,4 +35,7 @@ class Stage():
        
     def run(self):
         for enemy in self.enemies:
-            enemy.move()
+            x = 200
+            y = 1
+            enemy.move(x, y)
+            
