@@ -62,6 +62,8 @@ class LevelEditorGame:
 
             if self.SE.keyPress == "door2":
                 self.stage.endDoor = self.SE.addDoor()
+            if self.SE.keyPress == "enemy":
+                self.stage.enemies.append(self.SE.addEnemy())
 
         # if event.type == MOUSEMOTION and self.SE.drawing:
         #     self.SE.onMouseMotion(event.pos)
@@ -97,6 +99,8 @@ class LevelEditorGame:
 
                 if event.key == pygame.K_n:
                     self.SE.keyPress = "name"
+                if event.key == pygame.K_e:
+                    self.SE.keyPress = "enemy"
                 
             else:
                 if event.key == pygame.K_BACKSPACE:
