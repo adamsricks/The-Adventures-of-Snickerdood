@@ -17,16 +17,13 @@ class Stage():
         self.nextStageName = ""
 
     def draw(self, screen):
-<<<<<<< HEAD
         self.enemy.draw(screen)
         x = 200
         y = 1
         self.enemy.move(x, y)
-=======
         for enemy in self.enemies:
             enemy.draw(screen)
 
->>>>>>> 3852a034b9c7f2b8f534f010d9bd970f68317efe
         for platform in self.platforms:
             platform.draw(screen)
 
