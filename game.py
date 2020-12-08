@@ -140,14 +140,17 @@ class Game:
 
 
         for each in self.bullet_list:
-            for enemy in self.stage.enemies:
-                if enemy.collision((each.x, each.y)):
-                    self.stage.enemies.remove(enemy)
-                    
             if each.x < 0 or each.x > self.screen_width:
                 each.kill()
             else:
                 each.advance()
+                
+            for enemy in self.stage.enemies:
+                if enemy.collision((each.x, each.y)):
+                    self.stage.enemies.remove(enemy)
+                    each.kill()
+                    
+            
             
     def on_render(self):
         self.screen.fill((255,255,255))
