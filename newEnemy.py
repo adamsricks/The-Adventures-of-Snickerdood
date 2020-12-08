@@ -15,8 +15,7 @@ walkRight = [pygame.image.load('TestGames/R1E.png'), pygame.image.load('TestGame
 walkLeft = [pygame.image.load('TestGames/L1E.png'), pygame.image.load('TestGames/L2E.png'), pygame.image.load('TestGames/L3E.png'), pygame.image.load('TestGames/L4E.png'), pygame.image.load('TestGames/L5E.png'), pygame.image.load('TestGames/L6E.png'), pygame.image.load('TestGames/L7E.png'), pygame.image.load('TestGames/L8E.png'), pygame.image.load('TestGames/L9E.png'), pygame.image.load('TestGames/L10E.png'), pygame.image.load('TestGames/L11E.png')]
 
 
-# Lasers
-bullet_img = pygame.image.load(os.path.join('pics','bullet-1.bmp'))
+
 
 
 
