@@ -9,26 +9,7 @@ from pygame import mixer
 pygame.font.init()
 pygame.init()
 
-# fps = 27
-# WIDTH, HEIGHT = 800, 800
-# window = pygame.display.set_mode((WIDTH, HEIGHT))
-# pygame.display.set_caption("Enemy Tutorial")
-
-# Load images
-# playerleft = [pygame.image.load('pics/megaman-left-1.bmp'), pygame.image.load('pics/megaman-left-2.bmp'), pygame.image.load('pics/megaman-left-3.bmp'), 
-# pygame.image.load('pics/megaman-left-4.bmp'), pygame.image.load('pics/megaman-left-5.bmp'), pygame.image.load('pics/megaman-left-6.bmp')]
-
-# playerrights = [pygame.image.load('pics/megaman-right-1.bmp'), pygame.image.load('pics/megaman-right-2.bmp'), pygame.image.load('pics/megaman-right-3.bmp'), 
-# pygame.image.load('pics/megaman-right-4.bmp'), pygame.image.load('pics/megaman-right-5.bmp'), pygame.image.load('pics/megaman-right-6.bmp')]
-
 bullet_img = pygame.image.load(os.path.join('pics','bullet-1.bmp'))
-
-# stand = pygame.image.load('TestGames/R6.png')
-# Enemy image
-#flameLeft = [pygame.image.load('pics/heatman-flaming-left-1.bmp'), pygame.image.load('pics/heatman-flaming-left-2.bmp'), pygame.image.load('pics/heatman-flaming-left-3.bmp'), pygame.image.load('pics/heatman-flaming-left-4.bmp'), pygame.image.load('pics/heatman-flaming-left-5.bmp'), pygame.image.load('pics/heatman-flaming-left-6.bmp'), pygame.image.load('pics/heatman-flaming-left-7.bmp'), pygame.image.load('pics/heatman-flaming-left-8.bmp')]
-#flameRight = [pygame.image.load('pics/heatman-flaming-right-1.bmp'), pygame.image.load('pics/heatman-flaming-right-2.bmp'), pygame.image.load('pics/heatman-flaming-right-3.bmp'), pygame.image.load('pics/heatman-flaming-right-4.bmp'), pygame.image.load('pics/heatman-flaming-right-5.bmp'), pygame.image.load('pics/heatman-flaming-right-6.bmp'), pygame.image.load('pics/heatman-flaming-right-7.bmp'), pygame.image.load('pics/heatman-flaming-right-8.bmp')]
-# walkRight = [pygame.image.load('TestGames/R1E.png'), pygame.image.load('TestGames/R2E.png'), pygame.image.load('TestGames/R3E.png'), pygame.image.load('TestGames/R4E.png'), pygame.image.load('TestGames/R5E.png'), pygame.image.load('TestGames/R6E.png'), pygame.image.load('TestGames/R7E.png'), pygame.image.load('TestGames/R8E.png'), pygame.image.load('TestGames/R9E.png'), pygame.image.load('TestGames/R10E.png'), pygame.image.load('TestGames/R11E.png')]
-# walkLeft = [pygame.image.load('TestGames/L1E.png'), pygame.image.load('TestGames/L2E.png'), pygame.image.load('TestGames/L3E.png'), pygame.image.load('TestGames/L4E.png'), pygame.image.load('TestGames/L5E.png'), pygame.image.load('TestGames/L6E.png'), pygame.image.load('TestGames/L7E.png'), pygame.image.load('TestGames/L8E.png'), pygame.image.load('TestGames/L9E.png'), pygame.image.load('TestGames/L10E.png'), pygame.image.load('TestGames/L11E.png')]
 
 walkRight = [pygame.image.load('TestGames/R1E.png'), pygame.image.load('TestGames/R2E.png'), pygame.image.load('TestGames/R3E.png'), pygame.image.load('TestGames/R4E.png'), pygame.image.load('TestGames/R5E.png'), pygame.image.load('TestGames/R6E.png'), pygame.image.load('TestGames/R7E.png'), pygame.image.load('TestGames/R8E.png'), pygame.image.load('TestGames/R9E.png'), pygame.image.load('TestGames/R10E.png'), pygame.image.load('TestGames/R11E.png')]
 walkLeft = [pygame.image.load('TestGames/L1E.png'), pygame.image.load('TestGames/L2E.png'), pygame.image.load('TestGames/L3E.png'), pygame.image.load('TestGames/L4E.png'), pygame.image.load('TestGames/L5E.png'), pygame.image.load('TestGames/L6E.png'), pygame.image.load('TestGames/L7E.png'), pygame.image.load('TestGames/L8E.png'), pygame.image.load('TestGames/L9E.png'), pygame.image.load('TestGames/L10E.png'), pygame.image.load('TestGames/L11E.png')]
@@ -37,11 +18,6 @@ walkLeft = [pygame.image.load('TestGames/L1E.png'), pygame.image.load('TestGames
 # Lasers
 bullet_img = pygame.image.load(os.path.join('pics','bullet-1.bmp'))
 
-# Background
-# bg = pygame.transform.scale(pygame.image.load('TestGames//bg.png'), (WIDTH, HEIGHT))
-char = pygame.image.load('TestGames/standing.png')
-# Background music
-clock = pygame.time.Clock()
 
 
 # #Bullet class
@@ -201,123 +177,3 @@ class Enemy(Creature):
             # bullet = Bullet(self.x-20, self.y, self.bullet_img)
             # self.bullets.append(bullet)
             self.cool_down_counter = 1
-#Checks for collotion of two objects and returns the result
-# def collide(obj1, obj2):
-#     print('hit')
-#     offset_x = int(obj2.x - obj1.x)
-#     offset_y = int(obj2.y - obj1.y)
-#     return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
-
-#Main class
-# def main():
-#     run = True
-#   #Frame rate
-#     enemy_width = random.randint(100, 1700)
-#     #player = Player(WIDTH / 2, HEIGHT - 100)
-#     gravity = .66
-#     player = Character.rect
-#     level = 0
-#     lives = 5
-#     main_font = pygame.font.SysFont("comicsans", 50)
-#     lost_font = pygame.font.SysFont("comicsans", 60)
-#     #Enemy details
-#     enemies = []
-#     wave_length = 5
-#     player_vel = 7
-#     #Player details
-#     bullet_vel = 10
-#     #Game run speed
-#     clock = pygame.time.Clock()
-
-#     lost = False
-#     lost_count = 0
-#     #Updates the screen 
-#     def redraw_window():
-#         window.blit(bg, (0,0))
-#         #Draws the text
-#         lives_label = main_font.render(f"Lives: {lives}", 1, (255,255,255))
-#         level_label = main_font.render(f"Level: {level}", 1, (255,255,255))
-#         #Displays text
-#         window.blit(lives_label, (10, 10))
-#         window.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
-#         #Draws enemy in enemies list
-#         for enemy in enemies:
-#             enemy.draw(window)
-
-#         #player.draw(window)
-#         #Displays gameover
-#         if lost:
-#             lost_label = lost_font.render("Game Over", 1, (255,255,255))
-#             window.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 350))
-#         #Updates screen
-#         pygame.display.update()
-#     #Game running loop
-#     while run:
-#         clock.tick(fps)
-#         redraw_window()
-#         #or player.health <= 0:
-#         if lives <= 0: #or player.health <= 0:
-#             lost = True
-#             lost_count += 1
-
-#         if lost:
-#             if lost_count > fps * 3:
-#                 run = False
-#             else:
-#                 continue
-
-#         if len(enemies) == 0:
-#             level += 1
-#             wave_length += 1
-#             for i in range(wave_length):
-#                 enemy = Enemy(random.randrange(50, WIDTH-100), HEIGHT - 100, WIDTH - 100)
-#                 enemies.append(enemy)
-
-#         for event in pygame.event.get():
-#             if event.type == pygame.QUIT:
-#                 quit()
-
-#         # keys = pygame.key.get_pressed()
-#         # if keys[pygame.K_LEFT] and player.x - player_vel > 0: # left
-#         #     player.x -= player_vel
-#         #     player.facing = 1
-#         # if keys[pygame.K_RIGHT] and player.x + player_vel + player.get_width() < WIDTH: # right
-#         #     player.x += player_vel
-#         #     player.facing = -1
-#         # if keys[pygame.K_UP] and player.y - player_vel > 0: # up
-#         #     player.y -= player_vel
-#         # if keys[pygame.K_DOWN] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # down
-#         #     player.y += player_vel
-#         # if keys[pygame.K_SPACE]:
-#         #     player.shoot(player.facing)
-
-#         for enemy in enemies[:]:
-#             enemy.move(player)
-#             enemy.move_bullets(bullet_vel, player)
-
-#             if collide(enemy, player):
-#                 player.health -= 10
-#                 enemies.remove(enemy)
-#             elif enemy.x + enemy.get_height() > HEIGHT:
-#                 lives -= 1
-#                 enemies.remove(enemy)
-
-#         player.move_bullets(-bullet_vel, enemies)
-
-# def main_menu():
-#     title_font = pygame.font.SysFont("comicsans", 70)
-#     run = True
-#     while run:
-#         window.blit(bg, (0,0))
-#         title_label = title_font.render("Press the mouse to begin...", 1, (255,255,255))
-#         window.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 350))
-#         pygame.display.update()
-#         for event in pygame.event.get():
-#             if event.type == pygame.QUIT:
-#                 run = False
-#             if event.type == pygame.MOUSEBUTTONDOWN:
-#                 main()
-#     pygame.quit()
-
-# main_menu()
-
