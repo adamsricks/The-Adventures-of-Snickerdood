@@ -8,7 +8,7 @@ class Menu():
         self.level1Name = "name"
         self.Level1txt = font.render(self.level1Name, True, pygame.Color('black'))
         self.level2Rect = pygame.Rect(10, 42, 140, 32)
-        self.level2Name = "World 2"
+        self.level2Name = "wk 13 demo"
         self.Level2txt = font.render(self.level2Name, True, pygame.Color('black'))
         self.level3Rect = pygame.Rect(10, 74, 140, 32)
         self.level3Name = "Test World 1"
@@ -25,6 +25,9 @@ class Menu():
         self.level7Rect = pygame.Rect(10, 202, 140, 32)
         self.level7Name = "Level 7"
         self.Level7txt = font.render(self.level7Name, True, pygame.Color('black'))
+        self.level8Rect = pygame.Rect(10, 234, 140, 32)
+        self.level8Name = "World 2"
+        self.Level8txt = font.render(self.level8Name, True, pygame.Color('black'))
 
     def draw(self, screen):
         screen.blit(self.Level1txt, (self.level1Rect.x+5, self.level1Rect.y+5))
@@ -41,6 +44,8 @@ class Menu():
         pygame.draw.rect(screen, pygame.Color('white'), self.level6Rect, 2)
         screen.blit(self.Level7txt, (self.level7Rect.x+5, self.level7Rect.y+5))
         pygame.draw.rect(screen, pygame.Color('white'), self.level7Rect, 2)
+        screen.blit(self.Level8txt, (self.level8Rect.x+5, self.level8Rect.y+5))
+        pygame.draw.rect(screen, pygame.Color('white'), self.level8Rect, 2)
 
     def getLevel(self, pos):
         if self.level1Rect.collidepoint(pos):
@@ -57,5 +62,7 @@ class Menu():
             return self.level6Name
         if self.level7Rect.collidepoint(pos):
             return self.level7Name
+        if self.level8Rect.collidepoint(pos):
+            return self.level8Name
         
         return None

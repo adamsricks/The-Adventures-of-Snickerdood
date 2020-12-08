@@ -58,8 +58,6 @@ class StageEditor():
         #     door.color = (255,0 ,0)
         return door
 
-    def addBaddie(self):
-        pass
 
     def drawTextbox(self, screen):
         font = pygame.font.Font(None, 32)

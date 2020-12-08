@@ -101,6 +101,12 @@ class LevelEditorGame:
                     self.SE.keyPress = "name"
                 if event.key == pygame.K_e:
                     self.SE.keyPress = "enemy"
+
+                if event.key == pygame.K_DELETE:
+                    if self.SE.keyPress == "floor":
+                        self.stage.platforms.pop()
+                    if self.SE.keyPress == "enemy":
+                        self.stage.enemies.pop()
                 
             else:
                 if event.key == pygame.K_BACKSPACE:
