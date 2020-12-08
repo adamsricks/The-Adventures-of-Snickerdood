@@ -38,4 +38,5 @@ class Stage():
             x = 200
             y = 1
             enemy.move(x, y)
+    
             

@@ -56,9 +56,9 @@ class Game:
 
         self.menu = Menu()
 
-        self.stage = Stage()
-        self.player = Player1(self.gravity)
-        self.player.startPos(self.stage.startDoor)
+        # self.stage = Stage()
+        # self.player = Player1(self.gravity)
+        # self.player.startPos(self.stage.startDoor)
 
 
         
@@ -106,14 +106,19 @@ class Game:
         bullet.add(self.bullet_list)
 
     def on_loop(self):
-        self.stage.run()
+        
 
         if self.player != None:
+            
             self.player.onGround = False
 
             if self.player.scrnbtm(self.screen_height):
                 self.player.startPos(self.stage.startDoor)
             
+            for enemy in self.stage.enemies:
+                if enemy.collision(self.player.rect.center):
+                    self.player.startPos(self.stage.startDoor)
+
             for platform in self.stage.platforms:
                 if self.player.platTopCollide(platform.rect):
                     self.player.setBottom(platform.rect.top)
@@ -130,11 +135,15 @@ class Game:
             if self.player.inDoorWay(self.stage.endDoor):
                 self.stage =  pickle.load( open( self.stage.nextStageName, "rb" ) )
                 self.player.startPos(self.stage.startDoor)
-                
+            self.stage.run()
             self.player.advance()
 
 
         for each in self.bullet_list:
+            for enemy in self.stage.enemies:
+                if enemy.collision((each.x, each.y)):
+                    self.stage.enemies.remove(enemy)
+                    
             if each.x < 0 or each.x > self.screen_width:
                 each.kill()
             else:
