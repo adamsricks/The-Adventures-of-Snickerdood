@@ -1,13 +1,13 @@
 # The-Adventures-of-Snickerdood
 
 ## Description
-This is a very simple platforming game made with pygame. It's about the adventures of snickerdood the lumberjack getting snickerdoodles for his sick girlfriend.
+This is a very simple platforming game made with pygame, about the adventures of snickerdood the lumberjack and his search for the lost snickerdoodles (or something like that).
 
 ## How to set it up
 IDE and Python, plus pygame installed.
 
 ## How to make levels
-Go to the file called levelEditor.py and run that. That's the level editor. Here are the commands to use:  
+Go to the file called levelEditor.py and run that. Here are the commands to use:  
 * Press n to enter the name of the world
 * Press d to set the starting door, and then d again for the ending door
 * Press f to make floors
