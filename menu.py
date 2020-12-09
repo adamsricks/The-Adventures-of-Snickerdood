@@ -11,7 +11,7 @@ class Menu():
         self.level2Name = "wk 13 demo"
         self.Level2txt = font.render(self.level2Name, True, pygame.Color('black'))
         self.level3Rect = pygame.Rect(10, 74, 140, 32)
-        self.level3Name = "Test World 1"
+        self.level3Name = "spuddy"
         self.Level3txt = font.render(self.level3Name, True, pygame.Color('black'))
         self.level4Rect = pygame.Rect(10, 106, 140, 32)
         self.level4Name = "Test World 2"
