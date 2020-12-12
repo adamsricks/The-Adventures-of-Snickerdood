@@ -49,7 +49,7 @@ class Game:
     def on_init(self):
         pygame.init()
         self.screen = pygame.display.set_mode((self.screen_width,self.screen_height)) 
-        self.backGround = pygame.transform.scale(pygame.image.load('test_games\\bg.jpg'), (self.screen_width, self.screen_height))
+        self.backGround = pygame.transform.scale(pygame.image.load('TestGames\\bg.jpg'), (self.screen_width, self.screen_height))
         self.clock = pygame.time.Clock()
 
         self.gravity = 0.2
