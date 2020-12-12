@@ -6,6 +6,8 @@ N to enter name
 D to set starting door and then d again for the ending door
 F to make floors
 S to save level
+E to make enemies
+delete to remove last floor or enemy
 """
 
 def main():

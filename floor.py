@@ -1,14 +1,14 @@
 import pygame
 from pygame.locals import *
+from animation import Animation
 
 class Floor():
-    def __init__(self, point1 = (0, 0), point2 = (0, 0)):
-        
-        self.color = (0, 0, 0,)
-        self.rect = pygame.Rect(point1, point2)
-        self.rect.normalize()
+    def __init__(self, point1 = (0, 0)):      
+        self.center = point1
+        self.rect = Animation.log.get_rect(center = self.center)
 
     def draw(self, screen):
-        pygame.draw.rect(screen, self.color, self.rect)
+        screen.blit(Animation.log, self.rect)
+
 
     

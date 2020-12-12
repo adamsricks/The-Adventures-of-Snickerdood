@@ -40,6 +40,9 @@ class Game:
 
         self.bullet_list = pygame.sprite.Group()
 
+        self.PLAYERANIMATE = pygame.USEREVENT
+
+
         self.running = False
         self.menu = None
 
@@ -54,7 +57,20 @@ class Game:
 
         self.menu = Menu()
 
-    def on_event(self, event): 
+        # self.stage = Stage()
+        # self.player = Player1(self.gravity)
+        # self.player.startPos(self.stage.startDoor)
+
+
+        
+
+
+        pygame.time.set_timer(self.PLAYERANIMATE, 75)
+
+
+
+
+    def on_event(self, event):
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
@@ -64,7 +80,7 @@ class Game:
             if levelName != None:
                 self.stage =  pickle.load( open( levelName + "/Stage1", "rb" ) )
                 self.player = Player1(self.gravity)
-                self.player.startPos(self.stage.startDoor.rect)
+                self.player.startPos(self.stage.startDoor)
         if self.running:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w or event.key == pygame.K_UP: 
@@ -81,6 +97,8 @@ class Game:
                     self.player.moveRight = False
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     self.player.moveLeft = False
+            if event.type == self.PLAYERANIMATE:
+                self.player.nextAnimation()
         
     def shootBullet(self):
         # This will add a bullet to the bullet list and pass the bullet the end of the gun
@@ -89,13 +107,19 @@ class Game:
         bullet.add(self.bullet_list)
 
     def on_loop(self):
+        
 
         if self.player != None:
+            
             self.player.onGround = False
 
             if self.player.scrnbtm(self.screen_height):
-                self.player.startPos(self.stage.startDoor.rect)
+                self.player.startPos(self.stage.startDoor)
             
+            for enemy in self.stage.enemies:
+                if enemy.collision(self.player.rect.center):
+                    self.player.startPos(self.stage.startDoor)
+
             for platform in self.stage.platforms:
                 if self.player.platTopCollide(platform.rect):
                     self.player.setBottom(platform.rect.top)
@@ -109,10 +133,10 @@ class Game:
                 if self.player.platRightCollide(platform.rect):
                     self.player.hitLeft(platform.rect.right)
 
-            if self.player.inDoorWay(self.stage.endDoor.rect):
+            if self.player.inDoorWay(self.stage.endDoor):
                 self.stage =  pickle.load( open( self.stage.nextStageName, "rb" ) )
-                self.player.startPos(self.stage.startDoor.rect)
-                
+                self.player.startPos(self.stage.startDoor)
+            self.stage.run()
             self.player.advance()
 
 
@@ -121,6 +145,13 @@ class Game:
                 each.kill()
             else:
                 each.advance()
+                
+            for enemy in self.stage.enemies:
+                if enemy.collision((each.x, each.y)):
+                    self.stage.enemies.remove(enemy)
+                    each.kill()
+                    
+            
             
     def on_render(self):
         self.screen.fill((255,255,255))

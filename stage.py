@@ -1,31 +1,42 @@
 from floor import Floor
 from newEnemy import Enemy
+import pygame
+from pygame.locals import *
 
 class Stage():
     def __init__(self):
         self.platforms = []
-        self.enemy = Enemy(100, 100, 400)
+        self.enemies = []
         self.startDoor = None
         self.endDoor = None
-        
+ 
+     
+        # self.startDoor = pygame.Rect(10, 10, 40, 50)
+        # self.endDoor = pygame.Rect(200, 300, 40, 50)
         self.name = ""
         self.nextStageName = ""
 
-
     def draw(self, screen):
-        # for enemy in enemies:
-        
-        self.enemy.draw(screen)
+        # self.enemy.draw(screen)
+       
+        for enemy in self.enemies:
+            enemy.draw(screen)
+             
+
         for platform in self.platforms:
             platform.draw(screen)
+
         if self.startDoor != None:
-            self.startDoor.draw(screen)
+            pygame.draw.rect(screen, (255, 255,0), self.startDoor)
+            # self.startDoor.draw(screen)
         if self.endDoor != None:   
-            self.endDoor.draw(screen)
+            pygame.draw.rect(screen, (255,0 ,0), self.endDoor)
+            # self.endDoor.draw(screen)
+       
     def run(self):
-        x = 200
-        y = 0
-        self.enemy.append(self.enemy)
-        for enemyies in enemy[:]:
+        for enemy in self.enemies:
+            x = 200
+            y = 1
             enemy.move(x, y)
-        
+    
+            

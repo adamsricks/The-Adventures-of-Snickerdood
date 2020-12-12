@@ -12,3 +12,4 @@ __pycache__
 axe.xcf
 .vscode
 
+.DS_Store

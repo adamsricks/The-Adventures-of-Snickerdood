@@ -62,9 +62,11 @@ class LevelEditorGame:
 
             if self.SE.keyPress == "door2":
                 self.stage.endDoor = self.SE.addDoor()
+            if self.SE.keyPress == "enemy":
+                self.stage.enemies.append(self.SE.addEnemy())
 
-        if event.type == MOUSEMOTION and self.SE.drawing:
-            self.SE.onMouseMotion(event.pos)
+        # if event.type == MOUSEMOTION and self.SE.drawing:
+        #     self.SE.onMouseMotion(event.pos)
             
         
         if event.type == KEYDOWN:
@@ -97,6 +99,14 @@ class LevelEditorGame:
 
                 if event.key == pygame.K_n:
                     self.SE.keyPress = "name"
+                if event.key == pygame.K_e:
+                    self.SE.keyPress = "enemy"
+
+                if event.key == pygame.K_DELETE or event.key == pygame.K_BACKSPACE:
+                    if self.SE.keyPress == "floor":
+                        self.stage.platforms.pop()
+                    if self.SE.keyPress == "enemy":
+                        self.stage.enemies.pop()
                 
             else:
                 if event.key == pygame.K_BACKSPACE:
@@ -111,7 +121,7 @@ class LevelEditorGame:
        
 
     def on_loop(self):
-        pass
+        self.stage.run()
 
     def on_render(self):
         self.screen.fill((255,255,255))
