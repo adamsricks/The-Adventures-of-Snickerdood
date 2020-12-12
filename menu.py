@@ -5,28 +5,28 @@ class Menu():
     def __init__(self):
         font = pygame.font.Font(None, 32)
         self.level1Rect = pygame.Rect(10, 10, 140, 32)
-        self.level1Name = "name"
+        self.level1Name = "World 1"
         self.Level1txt = font.render(self.level1Name, True, pygame.Color('black'))
         self.level2Rect = pygame.Rect(10, 42, 140, 32)
-        self.level2Name = "wk 13 demo"
+        self.level2Name = "World 2"
         self.Level2txt = font.render(self.level2Name, True, pygame.Color('black'))
         self.level3Rect = pygame.Rect(10, 74, 140, 32)
-        self.level3Name = "spuddy"
+        self.level3Name = "World 3"
         self.Level3txt = font.render(self.level3Name, True, pygame.Color('black'))
         self.level4Rect = pygame.Rect(10, 106, 140, 32)
-        self.level4Name = "CS246"
+        self.level4Name = ""
         self.Level4txt = font.render(self.level4Name, True, pygame.Color('black'))
         self.level5Rect = pygame.Rect(10, 138, 140, 32)
-        self.level5Name = "Test World 3"
+        self.level5Name = ""
         self.Level5txt = font.render(self.level5Name, True, pygame.Color('black'))
         self.level6Rect = pygame.Rect(10, 170, 140, 32)
-        self.level6Name = "Demo World"
+        self.level6Name = ""
         self.Level6txt = font.render(self.level6Name, True, pygame.Color('black'))
         self.level7Rect = pygame.Rect(10, 202, 140, 32)
-        self.level7Name = "Level 7"
+        self.level7Name = ""
         self.Level7txt = font.render(self.level7Name, True, pygame.Color('black'))
         self.level8Rect = pygame.Rect(10, 234, 140, 32)
-        self.level8Name = "World 2"
+        self.level8Name = ""
         self.Level8txt = font.render(self.level8Name, True, pygame.Color('black'))
 
     def draw(self, screen):
