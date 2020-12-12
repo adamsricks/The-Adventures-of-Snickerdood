@@ -21,7 +21,7 @@ After that go to menu.py and type the name of the folder (the name of the world)
 ## How to run the game
 Go to main.py and run it!
 
-User the arrow keys or "AWSD" the move haracter, and spacebar to shoot.
+Use the arrow keys or "WASD" the move character, and spacebar to shoot.
 
 ![alt text](gameplay.png)
 
