@@ -61,7 +61,7 @@ class Game:
             self.running = True
             levelName = self.menu.getLevel(event.pos)
             if levelName != None:
-                self.stage = self.stage =  pickle.load( open( levelName + "/Stage1", "rb" ) )
+                self.stage =  pickle.load( open( levelName + "/Stage1", "rb" ) )
                 self.player = Player1(self.gravity)
                 self.player.startPos(self.stage.startDoor.rect)
         if self.running:
