@@ -27,7 +27,7 @@ class Game:
     def __init__(self):
         self.screen = None
         self.clock = None
-
+        self.backGround = None
         self.screen_width = 576
         self.screen_height = 576
 
@@ -46,6 +46,7 @@ class Game:
     def on_init(self):
         pygame.init()
         self.screen = pygame.display.set_mode((self.screen_width,self.screen_height)) 
+        self.backGround = pygame.transform.scale(pygame.image.load('test_games\\bg.jpg'), (self.screen_width, self.screen_height))
         self.clock = pygame.time.Clock()
 
         self.gravity = 0.2
@@ -123,6 +124,8 @@ class Game:
             
     def on_render(self):
         self.screen.fill((255,255,255))
+        if self.stage != None:
+            self.screen.blit(self.backGround, (0,0))
 
 
         if self.stage != None:

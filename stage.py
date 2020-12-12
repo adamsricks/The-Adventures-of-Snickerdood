@@ -14,6 +14,7 @@ class Stage():
 
     def draw(self, screen):
         # for enemy in enemies:
+        
         self.enemy.draw(screen)
         for platform in self.platforms:
             platform.draw(screen)
