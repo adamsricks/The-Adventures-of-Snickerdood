@@ -10,5 +10,8 @@ class Floor():
     def draw(self, screen):
         screen.blit(Animation.log, self.rect)
 
+    def collision(self, objPoint):
+        return self.rect.collidepoint(objPoint)
+
 
     

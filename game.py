@@ -150,6 +150,10 @@ class Game:
                 if enemy.collision((each.x, each.y)):
                     self.stage.enemies.remove(enemy)
                     each.kill()
+
+            for platform in self.stage.platforms:
+                if platform.collision((each.x, each.y)):
+                    each.kill()
                     
             
             
